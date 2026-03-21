@@ -1,0 +1,535 @@
+---
+const topNavItems = [
+  { href: "/stuff", label: "stuff" },
+  { href: "/photos", label: "photos" },
+  { href:"/under-construction", label: "things" },
+  { href:"/under-construction", label: "fine arts" },
+  { href:"/under-construction", label: "writing" },
+  { href: "/archive", label: "archive" }
+];
+
+const photoSets = [
+  {
+    title: "Wedding Work",
+    type: "weddings",
+    description: "weddings, engagements, and client work",
+    year: "selected work",
+    tag: "client",
+    color: "var(--red)",
+    image: "/images/photos/wedding-work.jpg",
+    href: "https://youtube.com/"
+  },
+  {
+    title: "Portraits",
+    type: "portraits",
+    description: "people, friends, and quieter images",
+    year: "ongoing",
+    tag: "people",
+    color: "var(--blue)",
+    image: "/images/photos/portraits.jpg",
+    href: "https://youtube.com/"
+  },
+  {
+    title: "Travel / Places",
+    type: "travel",
+    description: "images from places I’ve been and things I wanted to keep",
+    year: "archive",
+    tag: "places",
+    color: "var(--green)",
+    image: "/images/photos/travel-places.jpg",
+    href: "https://youtube.com/"
+  },
+  {
+    title: "Climbing",
+    type: "climbing",
+    description: "movement, texture, effort, and the spaces around it",
+    year: "ongoing",
+    tag: "motion",
+    color: "var(--lavender)",
+    image: "/images/photos/climbing.jpg",
+    href: "https://youtube.com/"
+  }
+];
+---
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>photos — corb.com</title>
+    <meta
+      name="description"
+      content="Photography archive: weddings, portraits, travel, climbing, and personal work."
+    />
+  </head>
+
+  <body>
+    <div class="paper-noise"></div>
+
+    <main class="page">
+      <header class="masthead">
+        <div class="masthead-left">
+          <span class="tiny-box">◻</span>
+          <span class="tiny-box">✦</span>
+          <span class="tiny-note">photography / people / places</span>
+        </div>
+
+        <div class="site-mark"><a href="/">corb.com</a></div>
+
+        <div class="masthead-right">
+          <a href="/">home</a>
+        </div>
+      </header>
+
+      <div class="rule"></div>
+
+      <section class="top-strip">
+        <p class="stamp">issue 00 / photos archive</p>
+
+        <nav class="top-nav" aria-label="Primary">
+          {topNavItems.map((item) => (
+            <a href={item.href}>{item.label}</a>
+          ))}
+        </nav>
+
+        <p class="stamp right">Rexburg / internet / archive</p>
+      </section>
+
+      <div class="rule dashed"></div>
+
+      <section class="page-intro">
+        <div>
+          <p class="eyebrow">photos</p>
+          <h1>people, places, weddings, and everything else</h1>
+          <p class="intro">
+            Probably the deepest part of my work. Client work, personal images,
+            travel, climbing, portraits, and other photos I want to keep close.
+          </p>
+        </div>
+
+        <div class="side-note">
+          <p>weddings</p>
+          <p>engagements</p>
+          <p>portraits</p>
+          <p>travel</p>
+        </div>
+      </section>
+
+      <div class="rule dashed"></div>
+
+      <section class="filter-row" aria-label="Photo categories">
+        <span>weddings</span>
+        <span>engagements</span>
+        <span>portraits</span>
+        <span>travel</span>
+        <span>personal</span>
+        <span>climbing</span>
+      </section>
+
+      <div class="rule"></div>
+
+      <section class="photos-grid">
+        {photoSets.map((set) => (
+          <article class="photo-card">
+            <a href={set.href} target="_blank" rel="noreferrer" class="photo-link">
+              <div class="image-wrap">
+                <img src={set.image} alt={set.title} class="set-image" />
+                <span class="set-tag" style={`--tag-color:${set.color}`}>{set.tag}</span>
+              </div>
+
+              <div class="set-info">
+                <div class="set-topline">
+                  <h2>{set.title}</h2>
+                  <span class="set-year">{set.year}</span>
+                </div>
+
+                <p class="set-type" style={`--type-color:${set.color}`}>{set.type}</p>
+                <p class="set-description">{set.description}</p>
+              </div>
+            </a>
+          </article>
+        ))}
+      </section>
+    </main>
+  </body>
+</html>
+
+<style>
+  :root {
+    --bg: #ffffff;
+    --text: #241f1b;
+    --muted: #6f685f;
+    --soft: #9a9187;
+    --line: rgba(36, 31, 27, 0.16);
+
+    --red: #d94c37;
+    --blue: #2456a6;
+    --green: #4d765d;
+    --lavender: #c1b8ea;
+    --brown: #7a4333;
+
+    --shadow: rgba(24, 20, 17, 0.08);
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  html,
+  body {
+    margin: 0;
+    padding: 0;
+    min-height: 100%;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: Georgia, "Times New Roman", Times, serif;
+    overflow-x: hidden;
+  }
+
+  .paper-noise {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.05;
+    background-image:
+      radial-gradient(circle at 20% 15%, rgba(0, 0, 0, 0.05), transparent 24%),
+      radial-gradient(circle at 78% 22%, rgba(0, 0, 0, 0.03), transparent 20%),
+      radial-gradient(circle at 35% 82%, rgba(0, 0, 0, 0.03), transparent 20%);
+    mix-blend-mode: multiply;
+  }
+
+  .page {
+    position: relative;
+    z-index: 1;
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 1rem 1.25rem 2.5rem;
+  }
+
+  .masthead {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.35rem 0 0.75rem;
+  }
+
+  .masthead-left,
+  .masthead-right {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .masthead-right {
+    justify-content: flex-end;
+  }
+
+  .tiny-box {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.4rem;
+    height: 1.4rem;
+    border: 1px solid var(--text);
+    font-size: 0.78rem;
+    background: white;
+  }
+
+  .tiny-note {
+    font-size: 0.95rem;
+    color: var(--muted);
+    font-style: italic;
+  }
+
+  .site-mark {
+    font-size: clamp(2rem, 4vw, 3.3rem);
+    line-height: 1;
+    font-style: italic;
+    letter-spacing: -0.03em;
+  }
+
+  .site-mark a,
+  .masthead-right a,
+  .top-nav a,
+  .photo-link {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .masthead-right a {
+    border: 1px solid var(--text);
+    border-radius: 999px;
+    padding: 0.22rem 0.8rem;
+    font-size: 0.92rem;
+    background: white;
+    transition: background 160ms ease, color 160ms ease;
+  }
+
+  .masthead-right a:hover {
+    background: var(--text);
+    color: white;
+  }
+
+  .rule {
+    border-top: 1px solid var(--line);
+  }
+
+  .rule.dashed {
+    border-top-style: dashed;
+  }
+
+  .top-strip {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 1rem;
+    align-items: center;
+    padding: 0.7rem 0;
+  }
+
+  .stamp {
+    margin: 0;
+    font-size: 0.84rem;
+    color: var(--muted);
+    white-space: nowrap;
+  }
+
+  .stamp.right {
+    text-align: right;
+  }
+
+  .top-nav {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1.15rem;
+  }
+
+  .top-nav a {
+    font-size: 0.95rem;
+    color: var(--muted);
+    transition: color 160ms ease, transform 160ms ease;
+    text-transform: lowercase;
+  }
+
+  .top-nav a:hover {
+    color: var(--text);
+    transform: translateY(-1px);
+  }
+
+  .page-intro {
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: 2rem;
+    padding: 1.8rem 0 1.4rem;
+    align-items: end;
+  }
+
+  .eyebrow {
+    margin: 0 0 0.4rem;
+    font-size: 0.9rem;
+    color: var(--muted);
+    text-transform: lowercase;
+  }
+
+  h1 {
+    margin: 0;
+    font-size: clamp(3.2rem, 8vw, 6.4rem);
+    line-height: 0.92;
+    letter-spacing: -0.05em;
+    font-weight: 500;
+    max-width: 12ch;
+  }
+
+  .intro {
+    max-width: 40rem;
+    margin: 1rem 0 0;
+    font-size: 1.08rem;
+    line-height: 1.7;
+    color: var(--muted);
+  }
+
+  .side-note {
+    justify-self: end;
+    text-align: right;
+    color: var(--soft);
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+
+  .side-note p {
+    margin: 0;
+  }
+
+  .filter-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.7rem;
+    padding: 1rem 0;
+  }
+
+  .filter-row span {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.28rem 0.7rem;
+    border: 1px solid rgba(36, 31, 27, 0.1);
+    background: #faf8f4;
+    font-size: 0.85rem;
+    text-transform: lowercase;
+    color: var(--muted);
+  }
+
+  .photos-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.8rem 1.5rem;
+    padding-top: 1.6rem;
+  }
+
+  .photo-card {
+    min-width: 0;
+  }
+
+  .photo-link {
+    display: block;
+  }
+
+  .image-wrap {
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(36, 31, 27, 0.08);
+    box-shadow: 0 12px 18px var(--shadow);
+    background: #f5f2ec;
+  }
+
+  .set-image {
+    display: block;
+    width: 100%;
+    height: 24rem;
+    object-fit: cover;
+    transition: transform 220ms ease;
+  }
+
+  .set-tag {
+    position: absolute;
+    top: 0.8rem;
+    left: 0.8rem;
+    padding: 0.24rem 0.6rem;
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid rgba(36, 31, 27, 0.1);
+    font-size: 0.78rem;
+    text-transform: lowercase;
+    color: var(--tag-color);
+  }
+
+  .set-info {
+    padding-top: 0.85rem;
+  }
+
+  .set-topline {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    align-items: baseline;
+  }
+
+  .set-topline h2 {
+    margin: 0;
+    font-size: clamp(1.5rem, 2.5vw, 2rem);
+    line-height: 1;
+    font-weight: 500;
+    letter-spacing: -0.03em;
+  }
+
+  .set-year {
+    color: var(--soft);
+    font-size: 0.88rem;
+    white-space: nowrap;
+  }
+
+  .set-type {
+    margin: 0.55rem 0 0;
+    color: var(--type-color);
+    font-size: 0.93rem;
+    text-transform: lowercase;
+  }
+
+  .set-description {
+    margin: 0.65rem 0 0;
+    color: var(--muted);
+    line-height: 1.7;
+    font-size: 0.98rem;
+    max-width: 34rem;
+  }
+
+  .photo-link:hover .set-image {
+    transform: scale(1.02);
+  }
+
+  .photo-link:hover .set-topline h2 {
+    color: var(--blue);
+  }
+
+  @media (max-width: 1100px) {
+    .top-nav {
+      justify-content: flex-start;
+    }
+
+    .top-strip {
+      grid-template-columns: 1fr;
+      align-items: start;
+    }
+
+    .stamp.right {
+      text-align: left;
+    }
+  }
+
+  @media (max-width: 900px) {
+    .masthead,
+    .page-intro,
+    .photos-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .masthead-right,
+    .site-mark,
+    .side-note {
+      justify-content: flex-start;
+      text-align: left;
+    }
+
+    .side-note {
+      justify-self: start;
+    }
+
+    .set-image {
+      height: 20rem;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .page {
+      padding: 0.8rem 0.9rem 1.8rem;
+    }
+
+    h1 {
+      font-size: clamp(2.8rem, 13vw, 4.5rem);
+    }
+
+    .set-image {
+      height: 16rem;
+    }
+
+    .set-topline {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.25rem;
+    }
+  }
+</style>

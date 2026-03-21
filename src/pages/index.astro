@@ -1,17 +1,558 @@
 ---
+const navItems = [
+  { href: "/stuff", label: "stuff", meta: "films / projects / experiments", color: "var(--blue)" },
+  { href: "/photos", label: "photos", meta: "people / places / weddings", color: "var(--red)" },
+  { href:"/under-construction", label: "things", meta: "restored / available / collected", color: "var(--green)" },
+  { href:"/under-construction", label: "fine arts", meta: "paintings / drawings / illustrations", color: "var(--lavender)" },
+  { href:"/under-construction", label: "writing", meta: "notes / thoughts / media", color: "var(--brown)" },
+  { href: "/archive", label: "archive", meta: "personal / media / things i like", color: "var(--blue)" },
+  { href: "/play", label: "play", meta: "experiments / weird little things", color: "var(--yellow)" },
+  { href:"/under-construction", label: "about", meta: "who i am / what this is", color: "var(--text)" },
+  { href:"/under-construction", label: "contact", meta: "inquiries / bookings / hello", color: "var(--brown)" },
+];
 
+const topNavItems = navItems.filter(
+  (item) => item.label !== "about" && item.label !== "contact"
+);
+
+const floatingBits = [
+  { text: "✦", top: "7%", left: "6%", color: "var(--red)", size: "1rem", rotate: "-12deg" },
+  { text: "◌", top: "10%", right: "9%", color: "var(--text)", size: "0.95rem", rotate: "9deg" },
+  { text: "⌂", top: "21%", right: "14%", color: "var(--green)", size: "1rem", rotate: "0deg" },
+  { text: "⌁", top: "58%", left: "4%", color: "var(--brown)", size: "1rem", rotate: "8deg" },
+  { text: "◢", top: "74%", right: "11%", color: "var(--red)", size: "0.9rem", rotate: "-10deg" }
+];
 ---
 
 <html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>corb.com</title>
+    <meta
+      name="description"
+      content="A personal archive of art, photographs, films, objects, and thoughts."
+    />
+  </head>
+
+  <body>
+    <div class="paper-noise"></div>
+
+    <main class="page">
+      {floatingBits.map((bit) => (
+        <span
+          class="floating-bit"
+          style={`
+            top:${bit.top};
+            left:${bit.left ?? "auto"};
+            right:${bit.right ?? "auto"};
+            color:${bit.color};
+            font-size:${bit.size};
+            transform: rotate(${bit.rotate});
+          `}
+          aria-hidden="true"
+        >
+          {bit.text}
+        </span>
+      ))}
+
+      <header class="masthead">
+        <div class="masthead-left">
+          <span class="tiny-box">◻</span>
+          <span class="tiny-box">✉</span>
+          <span class="tiny-note">editor’s letter</span>
+        </div>
+
+        <div class="site-mark">corb.com</div>
+
+        <div class="masthead-right">
+          <a href="/writing">Archive</a>
+        </div>
+      </header>
+
+      <div class="rule"></div>
+
+      <section class="top-strip">
+        <p class="stamp">issue 00 / daily updates; occasionally.</p>
+
+        <nav class="top-nav" aria-label="Primary">
+          {topNavItems.map((item) => (
+            <a href={item.href}>{item.label}</a>
+          ))}
+        </nav>
+
+        <p class="stamp right">Rexburg / internet / archive</p>
+      </section>
+
+      <div class="rule dashed"></div>
+
+      <section class="hero">
+        <div class="hero-copy">
+          <h1>
+            a place
+            <br />
+            for <span class="accent-red">all</span>
+            <br />
+            of my <span class="accent-blue">art</span>
+          </h1>
+
+          <p class="intro">
+            art, photographs, films, restored objects, writings, experiments,
+            illustrations and other stuff I want to keep online.
+          </p>
+        </div>
+
+        <div class="hero-card">
+          <div class="photo-wrap">
+            <img
+              src="/images/homepage_photo.jpg"
+              alt="Featured image from corb.com"
+              class="homepage_photo"
+            />
+          </div>
+
+          <p class="card-caption">a personal corner of the internet</p>
+        </div>
+      </section>
+
+      <div class="rule"></div>
+
+      <section class="content-grid">
+        <article class="lead-story">
+          <p class="section-label">currently</p>
+          <h2>editing, restoring, thinking, climbing</h2>
+          <p>
+            This is the most awesome website of all time. It is meant to hold
+            the parts of my life that usually end up scattered across too many
+            places. Some of it is client work. Some of it is personal. Some of
+            it is still unfinished. Idk hope you like it :)
+          </p>
+        </article>
+
+        <aside class="menu-panel">
+          <p class="section-label">index</p>
+          <ul>
+            {navItems.map((item) => (
+              <li>
+                <a href={item.href}>
+                  <span class="menu-word" style={`--menu-color:${item.color}`}>{item.label}</span>
+                  <span class="menu-meta">{item.meta}</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </aside>
+      </section>
+
+      <div class="rule dashed"></div>
+
+      <footer class="footer">
+        <p>corb.com — issue zero</p>
+        <p>a collection of things I make and care about</p>
+      </footer>
+    </main>
+  </body>
 </html>
+
+<style>
+  :root {
+    --bg: #ffffff;
+    --paper: #ffffff;
+    --text: #241f1b;
+    --muted: #6f685f;
+    --soft: #9a9187;
+    --line: rgba(36, 31, 27, 0.18);
+
+    --red: #d94c37;
+    --blue: #2456a6;
+    --green: #4d765d;
+    --lavender: #c1b8ea;
+    --brown: #7a4333;
+    --yellow: #dec95d;
+
+    --shadow: rgba(24, 20, 17, 0.08);
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  html,
+  body {
+    margin: 0;
+    padding: 0;
+    min-height: 100%;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: Georgia, "Times New Roman", Times, serif;
+    overflow-x: hidden;
+  }
+
+  .paper-noise {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.05;
+    background-image:
+      radial-gradient(circle at 20% 15%, rgba(0, 0, 0, 0.05), transparent 24%),
+      radial-gradient(circle at 78% 22%, rgba(0, 0, 0, 0.03), transparent 20%),
+      radial-gradient(circle at 35% 82%, rgba(0, 0, 0, 0.03), transparent 20%),
+      radial-gradient(circle at 60% 62%, rgba(0, 0, 0, 0.02), transparent 18%);
+    mix-blend-mode: multiply;
+  }
+
+  .page {
+    position: relative;
+    z-index: 1;
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 1rem 1.25rem 2rem;
+  }
+
+  .floating-bit {
+    position: absolute;
+    line-height: 1;
+    opacity: 0.72;
+    user-select: none;
+    pointer-events: none;
+  }
+
+  .masthead {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.35rem 0 0.75rem;
+  }
+
+  .masthead-left,
+  .masthead-right {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    min-width: 0;
+  }
+
+  .masthead-right {
+    justify-content: flex-end;
+  }
+
+  .tiny-box {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.4rem;
+    height: 1.4rem;
+    border: 1px solid var(--text);
+    font-size: 0.78rem;
+    background: white;
+  }
+
+  .tiny-note {
+    font-size: 0.95rem;
+    color: var(--muted);
+    font-style: italic;
+  }
+
+  .site-mark {
+    font-size: clamp(2rem, 4vw, 3.3rem);
+    line-height: 1;
+    font-style: italic;
+    letter-spacing: -0.03em;
+  }
+
+  .masthead a,
+  .top-nav a,
+  .menu-panel a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .masthead-right a {
+    border: 1px solid var(--text);
+    border-radius: 999px;
+    padding: 0.22rem 0.8rem;
+    font-size: 0.92rem;
+    transition: background 160ms ease, color 160ms ease;
+    background: white;
+  }
+
+  .masthead-right a:hover {
+    background: var(--text);
+    color: white;
+  }
+
+  .rule {
+    border-top: 1px solid var(--line);
+  }
+
+  .rule.dashed {
+    border-top-style: dashed;
+  }
+
+  .top-strip {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 1rem;
+    align-items: center;
+    padding: 0.7rem 0;
+  }
+
+  .stamp {
+    margin: 0;
+    font-size: 0.84rem;
+    color: var(--muted);
+    white-space: nowrap;
+  }
+
+  .stamp.right {
+    text-align: right;
+  }
+
+  .top-nav {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1.15rem;
+  }
+
+  .top-nav a {
+    font-size: 0.95rem;
+    color: var(--muted);
+    transition: color 160ms ease, transform 160ms ease;
+    text-transform: lowercase;
+  }
+
+  .top-nav a:hover {
+    color: var(--text);
+    transform: translateY(-1px);
+  }
+
+  .hero {
+    display: grid;
+    grid-template-columns: 1.1fr 0.95fr;
+    gap: 2.2rem;
+    align-items: center;
+    padding: 2rem 0 1.6rem;
+  }
+
+  .hero-copy {
+    padding-right: 1rem;
+  }
+
+  h1 {
+    margin: 0;
+    font-size: clamp(4rem, 10vw, 8.5rem);
+    line-height: 0.88;
+    letter-spacing: -0.065em;
+    font-weight: 500;
+  }
+
+  .accent-red {
+    color: var(--red);
+  }
+
+  .accent-blue {
+    color: var(--blue);
+  }
+
+  .intro {
+    max-width: 34rem;
+    margin: 1.25rem 0 0;
+    font-size: 1.15rem;
+    line-height: 1.65;
+    color: var(--muted);
+  }
+
+  .hero-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .photo-wrap {
+    background: transparent;
+    border: none;
+    padding: 0;
+  }
+
+  .homepage_photo {
+    display: block;
+    width: 100%;
+    height: 26rem;
+    object-fit: cover;
+    border: 1px solid rgba(36, 31, 27, 0.08);
+    box-shadow: 0 12px 18px rgba(24, 20, 17, 0.05);
+  }
+
+  .card-caption {
+    margin: 0.6rem 0 0;
+    color: var(--soft);
+    font-size: 0.88rem;
+  }
+
+  .content-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 2rem;
+    align-items: start;
+    padding: 1.4rem 0 1.8rem;
+  }
+
+  .section-label {
+    margin: 0 0 0.7rem;
+    font-size: 0.84rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+  }
+
+  .lead-story h2 {
+    margin: 0;
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    line-height: 1;
+    letter-spacing: -0.04em;
+    font-weight: 500;
+  }
+
+  .lead-story p:last-child {
+    margin: 1rem 0 0;
+    max-width: 36rem;
+    color: var(--muted);
+    font-size: 1.05rem;
+    line-height: 1.7;
+  }
+
+  .menu-panel ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 0.9rem;
+  }
+
+  .menu-panel a {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.15rem 0;
+    border-bottom: 1px solid rgba(36, 31, 27, 0.08);
+    transition: transform 160ms ease;
+  }
+
+  .menu-panel a:hover {
+    transform: translateX(0.3rem);
+  }
+
+  .menu-word {
+    color: var(--menu-color);
+    font-size: 1.5rem;
+    line-height: 1;
+    text-transform: lowercase;
+  }
+
+  .menu-meta {
+    color: var(--muted);
+    font-size: 0.92rem;
+    text-align: right;
+  }
+
+  .footer {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    padding-top: 1rem;
+    color: var(--soft);
+    font-size: 0.9rem;
+  }
+
+  .footer p {
+    margin: 0;
+  }
+
+  @media (max-width: 1100px) {
+    .top-nav {
+      justify-content: flex-start;
+    }
+
+    .top-strip {
+      grid-template-columns: 1fr;
+      align-items: start;
+    }
+
+    .stamp.right {
+      text-align: left;
+    }
+  }
+
+  @media (max-width: 980px) {
+    .masthead,
+    .hero,
+    .content-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .masthead-left,
+    .masthead-right,
+    .site-mark {
+      justify-content: flex-start;
+      text-align: left;
+    }
+
+    .masthead {
+      gap: 0.6rem;
+    }
+
+    .top-strip {
+      padding: 0.9rem 0;
+    }
+
+    .hero-copy {
+      padding-right: 0;
+    }
+
+    .homepage_photo {
+      height: 22rem;
+    }
+
+    .footer {
+      flex-direction: column;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .page {
+      padding: 0.75rem 0.9rem 1.5rem;
+    }
+
+    h1 {
+      font-size: clamp(3.4rem, 16vw, 5.4rem);
+    }
+
+    .intro {
+      font-size: 1rem;
+    }
+
+    .menu-panel a {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .menu-meta {
+      text-align: left;
+    }
+
+    .homepage_photo {
+      height: 16rem;
+    }
+
+    .floating-bit {
+      opacity: 0.4;
+    }
+  }
+</style>

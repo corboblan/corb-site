@@ -1,0 +1,526 @@
+---
+const topNavItems = [
+  { href: "/stuff", label: "stuff" },
+  { href: "/photos", label: "photos" },
+  { href:"/under-construction", label: "things" },
+  { href:"/under-construction", label: "fine arts" },
+  { href:"/under-construction", label: "writing" },
+  { href: "/archive", label: "archive" }
+];
+
+const archiveCards = [
+  {
+    href:"/under-construction",
+    title: "currently",
+    subtitle: "what's going on right now",
+    description: "what i’m making, thinking about, or stuck on lately",
+    color: "var(--red)",
+    rotate: "-1.5deg",
+    size: "large"
+  },
+  {
+    href:"/under-construction",
+    title: "watching",
+    subtitle: "movies / shows / videos",
+    description: "everything from films to weird youtube rabbit holes",
+    color: "var(--blue)",
+    rotate: "1deg",
+    size: "medium"
+  },
+  {
+    href:"/under-construction",
+    title: "playing",
+    subtitle: "games i’m in",
+    description: "stuff i’m playing through, revisiting, or thinking about",
+    color: "var(--green)",
+    rotate: "-0.5deg",
+    size: "medium"
+  },
+  {
+    href:"/under-construction",
+    title: "reading",
+    subtitle: "books / essays / threads",
+    description: "books, articles, and things i keep meaning to finish",
+    color: "var(--lavender)",
+    rotate: "1.2deg",
+    size: "small"
+  },
+  {
+    href:"/under-construction",
+    title: "pokemon team",
+    subtitle: "critical information",
+    description: "for the people demanding to know the lineup",
+    color: "var(--yellow)",
+    rotate: "-1deg",
+    size: "small"
+  },
+  {
+    href:"/under-construction",
+    title: "favorite videos",
+    subtitle: "youtube / essays / saved forever",
+    description: "videos i love, revisit, or keep recommending",
+    color: "var(--brown)",
+    rotate: "0.8deg",
+    size: "medium"
+  },
+  {
+    href:"/under-construction",
+    title: "thinking about",
+    subtitle: "ideas / obsessions / fragments",
+    description: "things that keep floating around in my head",
+    color: "var(--text)",
+    rotate: "-1.2deg",
+    size: "large"
+  }
+];
+---
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>archive — corb.com</title>
+    <meta
+      name="description"
+      content="A personal archive of media, games, thoughts, favorites, and other things inside my head."
+    />
+  </head>
+
+  <body>
+    <div class="paper-noise"></div>
+
+    <main class="page">
+      <header class="masthead">
+        <div class="masthead-left">
+          <span class="tiny-box">◻</span>
+          <span class="tiny-box">✦</span>
+          <span class="tiny-note">archive / personal / ongoing</span>
+        </div>
+
+        <div class="site-mark"><a href="/">corb.com</a></div>
+
+        <div class="masthead-right">
+          <a href="/">home</a>
+        </div>
+      </header>
+
+      <div class="rule"></div>
+
+      <section class="top-strip">
+        <p class="stamp">issue 00 / personal archive</p>
+
+        <nav class="top-nav" aria-label="Primary">
+          {topNavItems.map((item) => (
+            <a href={item.href}>{item.label}</a>
+          ))}
+        </nav>
+
+        <p class="stamp right">updated occasionally</p>
+      </section>
+
+      <div class="rule dashed"></div>
+
+      <section class="page-intro">
+        <div>
+          <p class="eyebrow">archive</p>
+          <h1>a peek inside my brain</h1>
+          <p class="intro">
+            media i love, games i’m playing, things i’m thinking about, and
+            whatever else ends up living here.
+          </p>
+        </div>
+
+        <div class="side-note">
+          <p>favorites</p>
+          <p>obsessions</p>
+          <p>media</p>
+          <p>fragments</p>
+        </div>
+      </section>
+
+      <div class="rule dashed"></div>
+
+      <section class="archive-collage">
+        {archiveCards.map((card) => (
+          <a
+            href={card.href}
+            class={`archive-card ${card.size}`}
+            style={`--card-color:${card.color}; --card-rotate:${card.rotate};`}
+          >
+            <div class="card-top">
+              <span class="mini-tag">{card.subtitle}</span>
+              <span class="arrow">↗</span>
+            </div>
+
+            <div class="card-body">
+              <h2>{card.title}</h2>
+              <p>{card.description}</p>
+            </div>
+          </a>
+        ))}
+      </section>
+    </main>
+  </body>
+</html>
+
+<style>
+  :root {
+    --bg: #ffffff;
+    --text: #241f1b;
+    --muted: #6f685f;
+    --soft: #9a9187;
+    --line: rgba(36, 31, 27, 0.16);
+
+    --red: #d94c37;
+    --blue: #2456a6;
+    --green: #4d765d;
+    --lavender: #c1b8ea;
+    --brown: #7a4333;
+    --yellow: #dec95d;
+
+    --shadow: rgba(24, 20, 17, 0.08);
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  html,
+  body {
+    margin: 0;
+    padding: 0;
+    min-height: 100%;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: Georgia, "Times New Roman", Times, serif;
+    overflow-x: hidden;
+  }
+
+  .paper-noise {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.05;
+    background-image:
+      radial-gradient(circle at 20% 15%, rgba(0, 0, 0, 0.05), transparent 24%),
+      radial-gradient(circle at 78% 22%, rgba(0, 0, 0, 0.03), transparent 20%),
+      radial-gradient(circle at 35% 82%, rgba(0, 0, 0, 0.03), transparent 20%);
+    mix-blend-mode: multiply;
+  }
+
+  .page {
+    position: relative;
+    z-index: 1;
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 1rem 1.25rem 2.5rem;
+  }
+
+  .masthead {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.35rem 0 0.75rem;
+  }
+
+  .masthead-left,
+  .masthead-right {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .masthead-right {
+    justify-content: flex-end;
+  }
+
+  .tiny-box {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.4rem;
+    height: 1.4rem;
+    border: 1px solid var(--text);
+    font-size: 0.78rem;
+    background: white;
+  }
+
+  .tiny-note {
+    font-size: 0.95rem;
+    color: var(--muted);
+    font-style: italic;
+  }
+
+  .site-mark {
+    font-size: clamp(2rem, 4vw, 3.3rem);
+    line-height: 1;
+    font-style: italic;
+    letter-spacing: -0.03em;
+  }
+
+  .site-mark a,
+  .masthead-right a,
+  .top-nav a,
+  .archive-card {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .masthead-right a {
+    border: 1px solid var(--text);
+    border-radius: 999px;
+    padding: 0.22rem 0.8rem;
+    font-size: 0.92rem;
+    background: white;
+    transition: background 160ms ease, color 160ms ease;
+  }
+
+  .masthead-right a:hover {
+    background: var(--text);
+    color: white;
+  }
+
+  .rule {
+    border-top: 1px solid var(--line);
+  }
+
+  .rule.dashed {
+    border-top-style: dashed;
+  }
+
+  .top-strip {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 1rem;
+    align-items: center;
+    padding: 0.7rem 0;
+  }
+
+  .stamp {
+    margin: 0;
+    font-size: 0.84rem;
+    color: var(--muted);
+    white-space: nowrap;
+  }
+
+  .stamp.right {
+    text-align: right;
+  }
+
+  .top-nav {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1.15rem;
+  }
+
+  .top-nav a {
+    font-size: 0.95rem;
+    color: var(--muted);
+    transition: color 160ms ease, transform 160ms ease;
+    text-transform: lowercase;
+  }
+
+  .top-nav a:hover {
+    color: var(--text);
+    transform: translateY(-1px);
+  }
+
+  .page-intro {
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: 2rem;
+    padding: 1.8rem 0 1.4rem;
+    align-items: end;
+  }
+
+  .eyebrow {
+    margin: 0 0 0.4rem;
+    font-size: 0.9rem;
+    color: var(--muted);
+    text-transform: lowercase;
+  }
+
+  h1 {
+    margin: 0;
+    font-size: clamp(3.2rem, 8vw, 6.2rem);
+    line-height: 0.92;
+    letter-spacing: -0.05em;
+    font-weight: 500;
+    max-width: 10ch;
+  }
+
+  .intro {
+    max-width: 38rem;
+    margin: 1rem 0 0;
+    font-size: 1.08rem;
+    line-height: 1.7;
+    color: var(--muted);
+  }
+
+  .side-note {
+    justify-self: end;
+    text-align: right;
+    color: var(--soft);
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+
+  .side-note p {
+    margin: 0;
+  }
+
+  .archive-collage {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 1.2rem;
+    padding-top: 1.6rem;
+  }
+
+  .archive-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 14rem;
+    padding: 1rem;
+    border: 1px solid rgba(36, 31, 27, 0.1);
+    background:
+      linear-gradient(180deg, rgba(255,255,255,0.95), rgba(248,246,241,0.95));
+    box-shadow: 0 12px 18px var(--shadow);
+    transform: rotate(var(--card-rotate));
+    transition:
+      transform 180ms ease,
+      box-shadow 180ms ease,
+      border-color 180ms ease;
+  }
+
+  .archive-card.large {
+    grid-column: span 6;
+  }
+
+  .archive-card.medium {
+    grid-column: span 4;
+  }
+
+  .archive-card.small {
+    grid-column: span 3;
+  }
+
+  .card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .mini-tag {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.22rem 0.55rem;
+    font-size: 0.78rem;
+    text-transform: lowercase;
+    border: 1px solid rgba(36, 31, 27, 0.1);
+    background: color-mix(in srgb, var(--card-color) 12%, white);
+    color: var(--text);
+  }
+
+  .arrow {
+    color: var(--card-color);
+    font-size: 1.1rem;
+  }
+
+  .card-body h2 {
+    margin: 1.8rem 0 0.55rem;
+    font-size: clamp(1.6rem, 3vw, 2.4rem);
+    line-height: 0.95;
+    letter-spacing: -0.04em;
+    font-weight: 500;
+    max-width: 12ch;
+  }
+
+  .card-body p {
+    margin: 0;
+    color: var(--muted);
+    line-height: 1.65;
+    max-width: 28ch;
+  }
+
+  .archive-card:hover {
+    transform: rotate(0deg) translateY(-4px);
+    box-shadow: 0 16px 24px rgba(24, 20, 17, 0.11);
+    border-color: rgba(36, 31, 27, 0.16);
+  }
+
+  .archive-card:hover .card-body h2 {
+    color: var(--card-color);
+  }
+
+  @media (max-width: 1100px) {
+    .top-nav {
+      justify-content: flex-start;
+    }
+
+    .top-strip {
+      grid-template-columns: 1fr;
+      align-items: start;
+    }
+
+    .stamp.right {
+      text-align: left;
+    }
+
+    .archive-card.large,
+    .archive-card.medium {
+      grid-column: span 6;
+    }
+
+    .archive-card.small {
+      grid-column: span 4;
+    }
+  }
+
+  @media (max-width: 900px) {
+    .masthead,
+    .page-intro {
+      grid-template-columns: 1fr;
+    }
+
+    .masthead-right,
+    .site-mark,
+    .side-note {
+      justify-content: flex-start;
+      text-align: left;
+    }
+
+    .side-note {
+      justify-self: start;
+    }
+
+    .archive-card.large,
+    .archive-card.medium,
+    .archive-card.small {
+      grid-column: span 12;
+      transform: rotate(0deg);
+    }
+  }
+
+  @media (max-width: 640px) {
+    .page {
+      padding: 0.8rem 0.9rem 1.8rem;
+    }
+
+    h1 {
+      font-size: clamp(2.8rem, 13vw, 4.5rem);
+    }
+
+    .archive-card {
+      min-height: 11rem;
+    }
+  }
+</style>
