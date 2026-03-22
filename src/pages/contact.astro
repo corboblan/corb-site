@@ -1,0 +1,151 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout title="contact — corb.cc">
+  <section class="page-intro">
+    <div>
+      <p class="eyebrow">contact</p>
+      <h1>let’s work together</h1>
+
+      <p class="intro">
+        If you’re interested in booking a shoot, collaborating, or just
+        reaching out, here’s where to do it.
+      </p>
+    </div>
+
+    <div class="side-note">
+      <p>weddings</p>
+      <p>portraits</p>
+      <p>video</p>
+      <p>projects</p>
+    </div>
+  </section>
+
+  <div class="rule dashed"></div>
+
+  <section class="contact-grid">
+    <div class="contact-main">
+      <p class="section-label">email</p>
+      <p class="contact-line">
+        <a href="mailto:youremail@gmail.com">corbinlowryart@gmail.com</a>
+      </p>
+
+      <p class="section-label">instagram</p>
+      <p class="contact-line">
+        <a href="https://instagram.com/" target="_blank">@corbinjlowry</a>
+      </p>
+
+      <p class="section-label">other</p>
+      <p class="contact-line">
+        open to projects, ideas, or just talking about something cool
+      </p>
+    </div>
+
+    <aside class="contact-side">
+      <p class="section-label">availability</p>
+      <p>
+        currently booking shoots and open to creative projects.
+      </p>
+
+      <p class="section-label">response time</p>
+      <p>
+        usually within a day or two.
+      </p>
+    </aside>
+  </section>
+
+  <div class="rule"></div>
+
+  <section class="contact-footer">
+    <p>
+      i’ll get back to you as soon as i can.
+    </p>
+  </section>
+</BaseLayout>
+
+<style>
+  .page-intro {
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: 2rem;
+    padding: 1.8rem 0 1.4rem;
+    align-items: end;
+  }
+
+  .eyebrow {
+    margin: 0 0 0.4rem;
+    font-size: 0.9rem;
+    color: var(--muted);
+    text-transform: lowercase;
+  }
+
+  h1 {
+    margin: 0;
+    font-size: clamp(3rem, 8vw, 5.5rem);
+    line-height: 0.92;
+    letter-spacing: -0.05em;
+    font-weight: 500;
+  }
+
+  .intro {
+    max-width: 36rem;
+    margin: 1rem 0 0;
+    font-size: 1.05rem;
+    line-height: 1.7;
+    color: var(--muted);
+  }
+
+  .side-note {
+    justify-self: end;
+    text-align: right;
+    color: var(--soft);
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+
+  .side-note p {
+    margin: 0;
+  }
+
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: 2rem;
+    padding: 1.6rem 0;
+  }
+
+  .contact-line {
+    margin: 0 0 1.2rem;
+    font-size: 1.1rem;
+  }
+
+  .contact-line a {
+    text-decoration: none;
+    border-bottom: 1px solid rgba(36, 31, 27, 0.2);
+  }
+
+  .contact-side p {
+    margin: 0 0 1rem;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+
+  .contact-footer {
+    padding-top: 1.2rem;
+    color: var(--soft);
+    font-size: 0.95rem;
+  }
+
+  @media (max-width: 900px) {
+    .page-intro,
+    .contact-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .side-note {
+      justify-self: start;
+      text-align: left;
+    }
+  }
+</style>

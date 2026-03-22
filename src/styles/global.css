@@ -1,0 +1,427 @@
+@font-face {
+  font-family: "PixelGeorgia";
+  src: url("/fonts/LoRes21OTSerif-Regular.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* =========================
+   ROOT + BASE SYSTEM
+========================= */
+
+:root {
+  --bg: #ffffff;
+  --text: #241f1b;
+  --muted: #6f685f;
+  --soft: #9a9187;
+  --line: rgba(36, 31, 27, 0.16);
+
+  --red: #d94c37;
+  --blue: #2456a6;
+  --green: #4d765d;
+  --lavender: #c1b8ea;
+  --brown: #7a4333;
+  --yellow: #dec95d;
+
+  --shadow: rgba(24, 20, 17, 0.08);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: Georgia, "Times New Roman", Times, serif;
+  overflow-x: hidden;
+}
+
+/* =========================
+   GLOBAL PAGE WRAPPER
+========================= */
+
+.page-shell {
+  position: relative;
+  z-index: 1;
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 1rem 1.25rem 2rem;
+}
+
+/* =========================
+   PAPER TEXTURE
+========================= */
+
+.paper-noise {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.05;
+  background-image:
+    radial-gradient(circle at 20% 15%, rgba(0, 0, 0, 0.05), transparent 24%),
+    radial-gradient(circle at 78% 22%, rgba(0, 0, 0, 0.03), transparent 20%),
+    radial-gradient(circle at 35% 82%, rgba(0, 0, 0, 0.03), transparent 20%),
+    radial-gradient(circle at 60% 62%, rgba(0, 0, 0, 0.02), transparent 18%);
+  mix-blend-mode: multiply;
+}
+
+/* =========================
+   GLOBAL ELEMENTS
+========================= */
+
+.rule {
+  border-top: 1px solid var(--line);
+}
+
+.rule.dashed {
+  border-top-style: dashed;
+}
+
+.section-label {
+  margin: 0 0 0.7rem;
+  font-size: 0.84rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+}
+
+/* =========================
+   MASTHEAD + NAV
+========================= */
+
+.masthead {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.35rem 0 0.75rem;
+}
+
+.masthead-left,
+.masthead-right {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.masthead-right {
+  justify-content: flex-end;
+}
+
+.tiny-box {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.4rem;
+  height: 1.4rem;
+  border: 1px solid var(--text);
+  font-size: 0.78rem;
+  background: white;
+}
+
+.tiny-note {
+  font-size: 0.95rem;
+  color: var(--muted);
+  font-style: italic;
+}
+
+.site-mark {
+  font-size: clamp(2rem, 4vw, 3.3rem);
+  line-height: 1;
+  font-style: italic;
+  letter-spacing: -0.03em;
+}
+
+.masthead a,
+.top-nav a,
+.menu-panel a,
+.text-link {
+  color: inherit;
+  text-decoration: none;
+}
+
+.masthead-right a {
+  border: 1px solid var(--text);
+  border-radius: 999px;
+  padding: 0.22rem 0.8rem;
+  font-size: 0.92rem;
+  background: white;
+  transition: background 160ms ease, color 160ms ease;
+}
+
+.masthead-right a:hover {
+  background: var(--text);
+  color: white;
+}
+
+/* =========================
+   TOP STRIP
+========================= */
+
+.top-strip {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 1rem;
+  align-items: center;
+  padding: 0.7rem 0;
+}
+
+.stamp {
+  margin: 0;
+  font-size: 0.84rem;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+.stamp.right {
+  text-align: right;
+}
+
+.top-nav {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1.15rem;
+}
+
+.top-nav a {
+  font-size: 0.95rem;
+  color: var(--muted);
+  transition: color 160ms ease, transform 160ms ease;
+  text-transform: lowercase;
+}
+
+.top-nav a:hover {
+  color: var(--text);
+  transform: none;
+}
+
+/* =========================
+   BUTTON SYSTEM
+========================= */
+
+.button {
+  appearance: none;
+  border: 1px solid rgba(36, 31, 27, 0.16);
+  background: #faf8f4;
+  color: var(--text);
+  padding: 0.55rem 0.8rem;
+  font: inherit;
+  cursor: pointer;
+  transition:
+    transform 160ms ease,
+    background 160ms ease,
+    border-color 160ms ease;
+}
+
+.button:hover {
+  transform: translateY(-1px);
+  background: white;
+  border-color: rgba(36, 31, 27, 0.28);
+}
+
+/* =========================
+   TEXT LINK
+========================= */
+
+.text-link {
+  display: inline-block;
+  margin-top: 1rem;
+  border-bottom: 1px solid rgba(36, 31, 27, 0.15);
+  padding-bottom: 0.1rem;
+  transition: transform 160ms ease, color 160ms ease;
+}
+
+.text-link:hover {
+  color: var(--red);
+  transform: translateX(0.15rem);
+}
+
+/* =========================
+   FUN TEXT EFFECTS
+========================= */
+
+/* general wave text */
+
+.wave-text {
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.wave-text span {
+  display: inline-block;
+  animation: wave-bob 1.8s ease-in-out infinite;
+}
+
+@keyframes wave-bob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+
+/* hover wave */
+
+.wave-hover {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0;
+}
+
+.wave-hover:hover {
+  cursor: pointer;
+}
+
+.wave-hover > span {
+  display: inline-block;
+}
+
+.wave-hover.is-waving > span {
+  animation: wave-hover-anim 0.7s ease-in-out infinite;
+  animation-delay: calc(var(--i) * 0.05s);
+}
+
+.wave-hover > span.is-settling {
+  transition: transform 260ms ease-out;
+}
+
+@keyframes wave-hover-anim {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-3px);
+  }
+}
+
+/* chunky/pixel-ish text fallback */
+
+.pixel-text {
+  display: inline-block;
+  letter-spacing: 0.01em;
+  text-rendering: geometricPrecision;
+  text-shadow:
+    1px 0 0 currentColor,
+    0 1px 0 currentColor,
+    -1px 0 0 currentColor,
+    0 -1px 0 currentColor,
+    2px 0 0 currentColor,
+    0 2px 0 currentColor;
+}
+
+/* pixel font word */
+
+.pixel-all {
+  display: inline-block;
+  font-family: "PixelGeorgia", serif;
+  font-size: 0.9em;
+  letter-spacing: 0.02em;
+  vertical-align: -0.05em;
+}
+
+/* animated pixel word */
+
+.pixel-all-wave {
+  display: inline-flex;
+  align-items: baseline;
+  font-family: "PixelGeorgia", serif;
+  font-size: 0.9em;
+  letter-spacing: 0.02em;
+  vertical-align: -0.05em;
+}
+
+.pixel-all-wave span {
+  display: inline-block;
+  animation: pixel-wave 1s ease-in-out infinite;
+}
+
+.pixel-all-wave span:nth-child(1) { animation-delay: 0s; }
+.pixel-all-wave span:nth-child(2) { animation-delay: 0.12s; }
+.pixel-all-wave span:nth-child(3) { animation-delay: 0.24s; }
+
+@keyframes pixel-wave {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+/* hover wiggle */
+
+.hover-wiggle {
+  display: inline-block;
+}
+
+.hover-wiggle:hover {
+  animation: wiggle 0.25s ease-in-out 2;
+}
+
+@keyframes wiggle {
+  0% { transform: rotate(0deg); }
+  50% { transform: rotate(1deg); }
+  100% { transform: rotate(0deg); }
+}
+
+/* =========================
+   RESPONSIVE BASICS
+========================= */
+
+@media (max-width: 1100px) {
+  .top-nav {
+    justify-content: flex-start;
+  }
+
+  .top-strip {
+    grid-template-columns: 1fr;
+    align-items: start;
+  }
+
+  .stamp.right {
+    text-align: left;
+  }
+}
+
+@media (max-width: 900px) {
+  .masthead {
+    grid-template-columns: 1fr;
+  }
+
+  .masthead-right,
+  .site-mark {
+    justify-content: flex-start;
+    text-align: left;
+  }
+}
+
+@media (max-width: 640px) {
+  .page-shell {
+    padding: 0.9rem 1rem 2rem;
+  }
+
+  .tiny-note {
+    font-size: 0.88rem;
+  }
+
+  .site-mark {
+    font-size: 2.4rem;
+  }
+
+  .stamp {
+    font-size: 0.78rem;
+    white-space: normal;
+  }
+
+  .top-nav {
+    gap: 0.8rem 1rem;
+  }
+
+  .top-nav a {
+    font-size: 0.92rem;
+  }
+}

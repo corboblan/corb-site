@@ -1,0 +1,115 @@
+---
+import "../styles/global.css";
+
+const { title = "corb.cc" } = Astro.props;
+
+const topNavItems = [
+  { href: "/stuff", label: "stuff" },
+  { href: "/photos", label: "photos" },
+  { href: "/under-construction", label: "things" },
+  { href: "/under-construction", label: "fine arts" },
+  { href: "/archive", label: "archive" },
+  { href: "/play", label: "play" },
+  { href: "/about", label: "about" },
+  { href: "/contact", label: "contact" }
+];
+---
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+  </head>
+
+  <body>
+    <div class="paper-noise"></div>
+
+    <main class="page-shell">
+      <header class="masthead">
+        <div class="masthead-left">
+          <span class="tiny-box">◻</span>
+          <span class="tiny-box">✉</span>
+          <span class="tiny-note">editor’s letter</span>
+        </div>
+
+        <div class="site-mark">
+          <a href="/">corb.cc</a>
+        </div>
+
+        <div class="masthead-right">
+          <a href="/archive">Archive</a>
+        </div>
+      </header>
+
+      <div class="rule"></div>
+
+      <section class="top-strip">
+        <p class="stamp">issue 00 / daily updates; occasionally.</p>
+
+        <nav class="top-nav" aria-label="Primary">
+          {topNavItems.map((item) => (
+            <a href={item.href} class="wave-hover">{item.label}</a>
+          ))}
+        </nav>
+
+        <p class="stamp right">Rexburg / internet / archive</p>
+      </section>
+
+      <div class="rule dashed"></div>
+
+      <slot />
+    </main>
+
+    <script>
+      document.querySelectorAll(".wave-hover").forEach((el) => {
+        if (el.dataset.waveReady === "true") return;
+
+        const text = el.textContent ?? "";
+        el.textContent = "";
+        el.dataset.waveReady = "true";
+
+        [...text].forEach((char, i) => {
+          const span = document.createElement("span");
+          span.textContent = char === " " ? "\u00A0" : char;
+          span.style.setProperty("--i", i);
+          el.appendChild(span);
+        });
+
+        el.addEventListener("mouseenter", () => {
+          el.querySelectorAll("span").forEach((span) => {
+            span.classList.remove("is-settling");
+            span.style.transform = "";
+          });
+
+          el.classList.add("is-waving");
+        });
+
+        el.addEventListener("mouseleave", () => {
+          const spans = el.querySelectorAll("span");
+
+          spans.forEach((span) => {
+            const computed = window.getComputedStyle(span).transform;
+
+            span.classList.remove("is-settling");
+
+            if (computed && computed !== "none") {
+              span.style.transform = computed;
+            } else {
+              span.style.transform = "translateY(0)";
+            }
+          });
+
+          el.classList.remove("is-waving");
+
+          requestAnimationFrame(() => {
+            spans.forEach((span) => {
+              span.classList.add("is-settling");
+              span.style.transform = "translateY(0)";
+            });
+          });
+        });
+      });
+    </script>
+  </body>
+</html>

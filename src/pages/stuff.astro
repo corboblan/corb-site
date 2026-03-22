@@ -1,251 +1,92 @@
 ---
-const topNavItems = [
-  { href: "/stuff", label: "stuff" },
-  { href: "/photos", label: "photos" },
-  { href: "/things", label: "things" },
-  { href: "/fine-arts", label: "fine arts" },
-  { href: "/writing", label: "writing" },
-  { href: "/archive", label: "archive" },
-  { href: "/play", label: "play" }
-];
+import BaseLayout from "../layouts/BaseLayout.astro";
 
 const projects = [
   {
-    title: "The Idea of Us",
-    type: "video essay",
-    description: "a piece about nostalgia, escapism, and returning to something simpler",
-    year: "2025",
-    tag: "favorite",
-    color: "var(--blue)"
-  },
-  {
     title: "Crash Out",
     type: "short film",
-    description: "movement, fear, progression, and the feeling of trying again",
+    description: "An awarding-winning short film about pursuing the things that bring you joy, especially through heartbreak.",
     year: "2025",
-    tag: "film",
-    color: "var(--red)"
+    tag: "favorite",
+    color: "var(--blue)",
+    href: "https://youtu.be/C26oBHtdNnM",
+    image: "/images/stuff/crash-out.jpg"
   },
+
+  {
+    title: "Game Boy Essay",
+    type: "video essay",
+    description: "a piece about returning to something simpler",
+    year: "2025",
+    tag: "video",
+    color: "var(--red)",
+    href: "https://youtube.com/YOUR_LINK_HERE",
+    image: "/images/stuff/gameboy.jpg"
+  },
+
   {
     title: "Untitled Experiment",
     type: "experiment",
-    description: "something unfinished. still figuring it out",
+    description: "still figuring this one out",
     year: "ongoing",
     tag: "in progress",
-    color: "var(--green)"
+    color: "var(--green)",
+    href: "/under-construction",
+    image: "/images/stuff/placeholder.jpg"
   }
 ];
 ---
 
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>stuff — corb.com</title>
-    <meta
-      name="description"
-      content="Films, projects, experiments, and other things in progress."
-    />
-  </head>
+<BaseLayout title="stuff — corb.cc">
+  <section class="page-intro">
+    <div>
+      <p class="eyebrow">stuff</p>
+      <h1>projects</h1>
+      <p class="intro">
+        films, projects, and experiments. some finished, some still becoming.
+      </p>
+    </div>
 
-  <body>
-    <div class="paper-noise"></div>
+    <div class="side-note">
+      <p>film</p>
+      <p>video</p>
+      <p>experiments</p>
+      <p>ideas</p>
+    </div>
+  </section>
 
-    <main class="page">
-      <header class="masthead">
-        <div class="masthead-left">
-          <span class="tiny-box">◻</span>
-          <span class="tiny-box">✦</span>
-          <span class="tiny-note">projects / motion / experiments</span>
+  <div class="rule dashed"></div>
+
+  <section class="projects">
+    {projects.map((project) => (
+      <a
+        href={project.href}
+        class="project-link"
+        target={project.href.startsWith("http") ? "_blank" : undefined}
+        rel={project.href.startsWith("http") ? "noreferrer" : undefined}
+      >
+        <div class="project">
+          <div class="project-thumb">
+            <img src={project.image} alt={project.title} />
+            <span class="thumb-label">{project.tag}</span>
+          </div>
+
+          <div class="project-info">
+            <div class="project-top">
+              <h2 style={`color:${project.color}`}>{project.title}</h2>
+              <span class="year">{project.year}</span>
+            </div>
+
+            <p class="type">{project.type}</p>
+            <p class="description">{project.description}</p>
+          </div>
         </div>
-
-        <div class="site-mark"><a href="/">corb.com</a></div>
-
-        <div class="masthead-right">
-          <a href="/">home</a>
-        </div>
-      </header>
-
-      <div class="rule"></div>
-
-      <section class="page-intro">
-        <div>
-          <p class="eyebrow">stuff</p>
-          <h1>films, projects, experiments</h1>
-          <p class="intro">
-            A home for moving images, unfinished ideas, edits, essays, and
-            whatever else ends up here.
-          </p>
-        </div>
-
-        <div class="side-note">
-          <p>some finished</p>
-          <p>some ongoing</p>
-          <p>some still strange</p>
-        </div>
-      </section>
-
-      <div class="rule dashed"></div>
-
-      <section class="projects-grid">
-        {projects.map((project) => (
-          <article class="project-card">
-            <a href="#" class="project-link">
-              <div class="project-thumb" style={`--thumb-color:${project.color}`}>
-                <span class="thumb-label">{project.tag}</span>
-                <div class="thumb-inner">
-                  <span class="thumb-title">{project.title}</span>
-                </div>
-              </div>
-
-              <div class="project-info">
-                <div class="project-topline">
-                  <h2>{project.title}</h2>
-                  <span class="project-year">{project.year}</span>
-                </div>
-
-                <p class="project-meta" style={`--meta-color:${project.color}`}>
-                  {project.type}
-                </p>
-
-                <p class="project-description">{project.description}</p>
-              </div>
-            </a>
-          </article>
-        ))}
-      </section>
-    </main>
-  </body>
-</html>
+      </a>
+    ))}
+  </section>
+</BaseLayout>
 
 <style>
-  :root {
-    --bg: #ffffff;
-    --text: #241f1b;
-    --muted: #6f685f;
-    --soft: #9a9187;
-    --line: rgba(36, 31, 27, 0.16);
-
-    --red: #d94c37;
-    --blue: #2456a6;
-    --green: #4d765d;
-    --lavender: #c1b8ea;
-    --brown: #7a4333;
-
-    --shadow: rgba(24, 20, 17, 0.07);
-  }
-
-  * {
-    box-sizing: border-box;
-  }
-
-  html,
-  body {
-    margin: 0;
-    padding: 0;
-    min-height: 100%;
-  }
-
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: Georgia, "Times New Roman", Times, serif;
-    overflow-x: hidden;
-  }
-
-  .paper-noise {
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    z-index: 0;
-    opacity: 0.05;
-    background-image:
-      radial-gradient(circle at 20% 15%, rgba(0, 0, 0, 0.05), transparent 24%),
-      radial-gradient(circle at 78% 22%, rgba(0, 0, 0, 0.03), transparent 20%),
-      radial-gradient(circle at 35% 82%, rgba(0, 0, 0, 0.03), transparent 20%);
-    mix-blend-mode: multiply;
-  }
-
-  .page {
-    position: relative;
-    z-index: 1;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 1rem 1.25rem 2.5rem;
-  }
-
-  .masthead {
-    display: grid;
-    grid-template-columns: 1fr auto 1fr;
-    align-items: center;
-    gap: 1rem;
-    padding: 0.35rem 0 0.75rem;
-  }
-
-  .masthead-left,
-  .masthead-right {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-  }
-
-  .masthead-right {
-    justify-content: flex-end;
-  }
-
-  .tiny-box {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 1.4rem;
-    height: 1.4rem;
-    border: 1px solid var(--text);
-    font-size: 0.78rem;
-    background: white;
-  }
-
-  .tiny-note {
-    font-size: 0.95rem;
-    color: var(--muted);
-    font-style: italic;
-  }
-
-  .site-mark {
-    font-size: clamp(2rem, 4vw, 3.3rem);
-    line-height: 1;
-    font-style: italic;
-    letter-spacing: -0.03em;
-  }
-
-  .site-mark a,
-  .masthead-right a,
-  .project-link {
-    color: inherit;
-    text-decoration: none;
-  }
-
-  .masthead-right a {
-    border: 1px solid var(--text);
-    border-radius: 999px;
-    padding: 0.22rem 0.8rem;
-    font-size: 0.92rem;
-    background: white;
-    transition: background 160ms ease, color 160ms ease;
-  }
-
-  .masthead-right a:hover {
-    background: var(--text);
-    color: white;
-  }
-
-  .rule {
-    border-top: 1px solid var(--line);
-  }
-
-  .rule.dashed {
-    border-top-style: dashed;
-  }
-
   .page-intro {
     display: grid;
     grid-template-columns: 1.2fr 0.8fr;
@@ -263,7 +104,7 @@ const projects = [
 
   h1 {
     margin: 0;
-    font-size: clamp(3.2rem, 8vw, 6.4rem);
+    font-size: clamp(3rem, 8vw, 5.5rem);
     line-height: 0.92;
     letter-spacing: -0.05em;
     font-weight: 500;
@@ -289,158 +130,106 @@ const projects = [
     margin: 0;
   }
 
-  .projects-grid {
+  .projects {
     display: grid;
-    gap: 1.4rem;
-    padding-top: 1.5rem;
-  }
-
-  .project-card {
-    border-bottom: 1px solid rgba(36, 31, 27, 0.08);
-    padding-bottom: 1.4rem;
+    gap: 2.2rem;
+    padding: 1.6rem 0;
   }
 
   .project-link {
-    display: grid;
-    grid-template-columns: 0.95fr 1.05fr;
-    gap: 1.5rem;
-    align-items: start;
+    text-decoration: none;
+    color: inherit;
   }
 
+  .project {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 2rem;
+    align-items: center;
+  }
+
+  /* 🔥 FIXED THUMBNAIL SYSTEM */
   .project-thumb {
     position: relative;
-    min-height: 15rem;
-    border: 1px solid rgba(36, 31, 27, 0.08);
-    background:
-      linear-gradient(135deg, rgba(255,255,255,0.9), rgba(240,240,240,0.65)),
-      linear-gradient(to bottom right, color-mix(in srgb, var(--thumb-color) 20%, white), white);
-    box-shadow: 0 12px 18px var(--shadow);
     overflow: hidden;
-    transition:
-      transform 180ms ease,
-      box-shadow 180ms ease,
-      border-color 180ms ease;
+    border: 1px solid rgba(36, 31, 27, 0.08);
+    background: #f5f2ec;
+    box-shadow: 0 12px 18px var(--shadow);
+    aspect-ratio: 4 / 5;
+  }
+
+  .project-thumb img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 220ms ease;
+  }
+
+  .project-link:hover .project-thumb img {
+    transform: scale(1.03);
   }
 
   .thumb-label {
     position: absolute;
     top: 0.8rem;
     left: 0.8rem;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
     padding: 0.22rem 0.55rem;
     font-size: 0.78rem;
     text-transform: lowercase;
     border: 1px solid rgba(36, 31, 27, 0.12);
-    background: rgba(255, 255, 255, 0.85);
-  }
-
-  .thumb-inner {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    align-items: flex-end;
-    padding: 1rem;
-  }
-
-  .thumb-title {
-    font-size: clamp(1.6rem, 3vw, 2.3rem);
-    line-height: 0.95;
-    letter-spacing: -0.03em;
-    max-width: 12ch;
+    background: rgba(255, 255, 255, 0.9);
+    z-index: 2;
   }
 
   .project-info {
-    padding-top: 0.2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
   }
 
-  .project-topline {
+  .project-top {
     display: flex;
     justify-content: space-between;
-    gap: 1rem;
     align-items: baseline;
   }
 
-  .project-topline h2 {
+  h2 {
     margin: 0;
-    font-size: clamp(1.8rem, 3vw, 2.6rem);
-    line-height: 1;
-    letter-spacing: -0.04em;
-    font-weight: 500;
+    font-size: 1.8rem;
+    letter-spacing: -0.02em;
   }
 
-  .project-year {
+  .year {
+    font-size: 0.9rem;
     color: var(--soft);
-    font-size: 0.92rem;
-    white-space: nowrap;
   }
 
-  .project-meta {
-    margin: 0.55rem 0 0;
-    color: var(--meta-color);
-    font-size: 0.95rem;
-    text-transform: lowercase;
-  }
-
-  .project-description {
-    margin: 0.8rem 0 0;
+  .type {
+    margin: 0;
+    font-size: 0.9rem;
     color: var(--muted);
-    font-size: 1rem;
-    line-height: 1.75;
-    max-width: 36rem;
   }
 
-  .project-link:hover .project-thumb {
-    transform: translateY(-4px);
-    box-shadow: 0 16px 24px rgba(24, 20, 17, 0.1);
-    border-color: rgba(36, 31, 27, 0.16);
-  }
-
-  .project-link:hover .project-topline h2 {
-    color: var(--blue);
+  .description {
+    margin: 0.4rem 0 0;
+    color: var(--muted);
+    line-height: 1.6;
   }
 
   @media (max-width: 900px) {
-    .page-intro,
-    .project-link,
-    .masthead {
+    .page-intro {
       grid-template-columns: 1fr;
-    }
-
-    .masthead-right,
-    .site-mark,
-    .side-note {
-      justify-content: flex-start;
-      text-align: left;
     }
 
     .side-note {
       justify-self: start;
+      text-align: left;
     }
 
-    .hero-copy {
-      padding-right: 0;
-    }
-  }
-
-  @media (max-width: 640px) {
-    .page {
-      padding: 0.8rem 0.9rem 1.8rem;
-    }
-
-    h1 {
-      font-size: clamp(2.8rem, 13vw, 4.5rem);
-    }
-
-    .project-thumb {
-      min-height: 12rem;
-    }
-
-    .project-topline {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 0.3rem;
+    .project {
+      grid-template-columns: 1fr;
     }
   }
 </style>

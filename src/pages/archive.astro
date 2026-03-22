@@ -1,16 +1,9 @@
 ---
-const topNavItems = [
-  { href: "/stuff", label: "stuff" },
-  { href: "/photos", label: "photos" },
-  { href:"/under-construction", label: "things" },
-  { href:"/under-construction", label: "fine arts" },
-  { href:"/under-construction", label: "writing" },
-  { href: "/archive", label: "archive" }
-];
+import BaseLayout from "../layouts/BaseLayout.astro";
 
 const archiveCards = [
   {
-    href:"/under-construction",
+    href: "/under-construction",
     title: "currently",
     subtitle: "what's going on right now",
     description: "what i’m making, thinking about, or stuck on lately",
@@ -19,7 +12,7 @@ const archiveCards = [
     size: "large"
   },
   {
-    href:"/under-construction",
+    href: "/under-construction",
     title: "watching",
     subtitle: "movies / shows / videos",
     description: "everything from films to weird youtube rabbit holes",
@@ -28,7 +21,7 @@ const archiveCards = [
     size: "medium"
   },
   {
-    href:"/under-construction",
+    href: "/under-construction",
     title: "playing",
     subtitle: "games i’m in",
     description: "stuff i’m playing through, revisiting, or thinking about",
@@ -37,7 +30,7 @@ const archiveCards = [
     size: "medium"
   },
   {
-    href:"/under-construction",
+    href: "/under-construction",
     title: "reading",
     subtitle: "books / essays / threads",
     description: "books, articles, and things i keep meaning to finish",
@@ -46,7 +39,7 @@ const archiveCards = [
     size: "small"
   },
   {
-    href:"/under-construction",
+    href: "/under-construction",
     title: "pokemon team",
     subtitle: "critical information",
     description: "for the people demanding to know the lineup",
@@ -55,7 +48,7 @@ const archiveCards = [
     size: "small"
   },
   {
-    href:"/under-construction",
+    href: "/under-construction",
     title: "favorite videos",
     subtitle: "youtube / essays / saved forever",
     description: "videos i love, revisit, or keep recommending",
@@ -64,7 +57,7 @@ const archiveCards = [
     size: "medium"
   },
   {
-    href:"/under-construction",
+    href: "/under-construction",
     title: "thinking about",
     subtitle: "ideas / obsessions / fragments",
     description: "things that keep floating around in my head",
@@ -75,262 +68,49 @@ const archiveCards = [
 ];
 ---
 
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>archive — corb.com</title>
-    <meta
-      name="description"
-      content="A personal archive of media, games, thoughts, favorites, and other things inside my head."
-    />
-  </head>
+<BaseLayout title="archive — corb.cc">
+  <section class="page-intro">
+    <div>
+      <p class="eyebrow">archive</p>
+      <h1>a peek inside my brain</h1>
+      <p class="intro">
+        media i love, games i’m playing, things i’m thinking about, and
+        whatever else ends up living here.
+      </p>
+    </div>
 
-  <body>
-    <div class="paper-noise"></div>
+    <div class="side-note">
+      <p>favorites</p>
+      <p>obsessions</p>
+      <p>media</p>
+      <p>fragments</p>
+    </div>
+  </section>
 
-    <main class="page">
-      <header class="masthead">
-        <div class="masthead-left">
-          <span class="tiny-box">◻</span>
-          <span class="tiny-box">✦</span>
-          <span class="tiny-note">archive / personal / ongoing</span>
+  <div class="rule dashed"></div>
+
+  <section class="archive-collage">
+    {archiveCards.map((card) => (
+      <a
+        href={card.href}
+        class={`archive-card ${card.size}`}
+        style={`--card-color:${card.color}; --card-rotate:${card.rotate};`}
+      >
+        <div class="card-top">
+          <span class="mini-tag">{card.subtitle}</span>
+          <span class="arrow">↗</span>
         </div>
 
-        <div class="site-mark"><a href="/">corb.com</a></div>
-
-        <div class="masthead-right">
-          <a href="/">home</a>
+        <div class="card-body">
+          <h2>{card.title}</h2>
+          <p>{card.description}</p>
         </div>
-      </header>
-
-      <div class="rule"></div>
-
-      <section class="top-strip">
-        <p class="stamp">issue 00 / personal archive</p>
-
-        <nav class="top-nav" aria-label="Primary">
-          {topNavItems.map((item) => (
-            <a href={item.href}>{item.label}</a>
-          ))}
-        </nav>
-
-        <p class="stamp right">updated occasionally</p>
-      </section>
-
-      <div class="rule dashed"></div>
-
-      <section class="page-intro">
-        <div>
-          <p class="eyebrow">archive</p>
-          <h1>a peek inside my brain</h1>
-          <p class="intro">
-            media i love, games i’m playing, things i’m thinking about, and
-            whatever else ends up living here.
-          </p>
-        </div>
-
-        <div class="side-note">
-          <p>favorites</p>
-          <p>obsessions</p>
-          <p>media</p>
-          <p>fragments</p>
-        </div>
-      </section>
-
-      <div class="rule dashed"></div>
-
-      <section class="archive-collage">
-        {archiveCards.map((card) => (
-          <a
-            href={card.href}
-            class={`archive-card ${card.size}`}
-            style={`--card-color:${card.color}; --card-rotate:${card.rotate};`}
-          >
-            <div class="card-top">
-              <span class="mini-tag">{card.subtitle}</span>
-              <span class="arrow">↗</span>
-            </div>
-
-            <div class="card-body">
-              <h2>{card.title}</h2>
-              <p>{card.description}</p>
-            </div>
-          </a>
-        ))}
-      </section>
-    </main>
-  </body>
-</html>
+      </a>
+    ))}
+  </section>
+</BaseLayout>
 
 <style>
-  :root {
-    --bg: #ffffff;
-    --text: #241f1b;
-    --muted: #6f685f;
-    --soft: #9a9187;
-    --line: rgba(36, 31, 27, 0.16);
-
-    --red: #d94c37;
-    --blue: #2456a6;
-    --green: #4d765d;
-    --lavender: #c1b8ea;
-    --brown: #7a4333;
-    --yellow: #dec95d;
-
-    --shadow: rgba(24, 20, 17, 0.08);
-  }
-
-  * {
-    box-sizing: border-box;
-  }
-
-  html,
-  body {
-    margin: 0;
-    padding: 0;
-    min-height: 100%;
-  }
-
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: Georgia, "Times New Roman", Times, serif;
-    overflow-x: hidden;
-  }
-
-  .paper-noise {
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    z-index: 0;
-    opacity: 0.05;
-    background-image:
-      radial-gradient(circle at 20% 15%, rgba(0, 0, 0, 0.05), transparent 24%),
-      radial-gradient(circle at 78% 22%, rgba(0, 0, 0, 0.03), transparent 20%),
-      radial-gradient(circle at 35% 82%, rgba(0, 0, 0, 0.03), transparent 20%);
-    mix-blend-mode: multiply;
-  }
-
-  .page {
-    position: relative;
-    z-index: 1;
-    max-width: 1280px;
-    margin: 0 auto;
-    padding: 1rem 1.25rem 2.5rem;
-  }
-
-  .masthead {
-    display: grid;
-    grid-template-columns: 1fr auto 1fr;
-    align-items: center;
-    gap: 1rem;
-    padding: 0.35rem 0 0.75rem;
-  }
-
-  .masthead-left,
-  .masthead-right {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-  }
-
-  .masthead-right {
-    justify-content: flex-end;
-  }
-
-  .tiny-box {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 1.4rem;
-    height: 1.4rem;
-    border: 1px solid var(--text);
-    font-size: 0.78rem;
-    background: white;
-  }
-
-  .tiny-note {
-    font-size: 0.95rem;
-    color: var(--muted);
-    font-style: italic;
-  }
-
-  .site-mark {
-    font-size: clamp(2rem, 4vw, 3.3rem);
-    line-height: 1;
-    font-style: italic;
-    letter-spacing: -0.03em;
-  }
-
-  .site-mark a,
-  .masthead-right a,
-  .top-nav a,
-  .archive-card {
-    color: inherit;
-    text-decoration: none;
-  }
-
-  .masthead-right a {
-    border: 1px solid var(--text);
-    border-radius: 999px;
-    padding: 0.22rem 0.8rem;
-    font-size: 0.92rem;
-    background: white;
-    transition: background 160ms ease, color 160ms ease;
-  }
-
-  .masthead-right a:hover {
-    background: var(--text);
-    color: white;
-  }
-
-  .rule {
-    border-top: 1px solid var(--line);
-  }
-
-  .rule.dashed {
-    border-top-style: dashed;
-  }
-
-  .top-strip {
-    display: grid;
-    grid-template-columns: auto 1fr auto;
-    gap: 1rem;
-    align-items: center;
-    padding: 0.7rem 0;
-  }
-
-  .stamp {
-    margin: 0;
-    font-size: 0.84rem;
-    color: var(--muted);
-    white-space: nowrap;
-  }
-
-  .stamp.right {
-    text-align: right;
-  }
-
-  .top-nav {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 1.15rem;
-  }
-
-  .top-nav a {
-    font-size: 0.95rem;
-    color: var(--muted);
-    transition: color 160ms ease, transform 160ms ease;
-    text-transform: lowercase;
-  }
-
-  .top-nav a:hover {
-    color: var(--text);
-    transform: translateY(-1px);
-  }
-
   .page-intro {
     display: grid;
     grid-template-columns: 1.2fr 0.8fr;
@@ -397,6 +177,8 @@ const archiveCards = [
       transform 180ms ease,
       box-shadow 180ms ease,
       border-color 180ms ease;
+    color: inherit;
+    text-decoration: none;
   }
 
   .archive-card.large {
@@ -462,19 +244,6 @@ const archiveCards = [
   }
 
   @media (max-width: 1100px) {
-    .top-nav {
-      justify-content: flex-start;
-    }
-
-    .top-strip {
-      grid-template-columns: 1fr;
-      align-items: start;
-    }
-
-    .stamp.right {
-      text-align: left;
-    }
-
     .archive-card.large,
     .archive-card.medium {
       grid-column: span 6;
@@ -486,20 +255,13 @@ const archiveCards = [
   }
 
   @media (max-width: 900px) {
-    .masthead,
     .page-intro {
       grid-template-columns: 1fr;
     }
 
-    .masthead-right,
-    .site-mark,
-    .side-note {
-      justify-content: flex-start;
-      text-align: left;
-    }
-
     .side-note {
       justify-self: start;
+      text-align: left;
     }
 
     .archive-card.large,
@@ -511,10 +273,6 @@ const archiveCards = [
   }
 
   @media (max-width: 640px) {
-    .page {
-      padding: 0.8rem 0.9rem 1.8rem;
-    }
-
     h1 {
       font-size: clamp(2.8rem, 13vw, 4.5rem);
     }
