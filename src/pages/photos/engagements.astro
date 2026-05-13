@@ -36,7 +36,7 @@ const engagementPhotos = Object.values(images);
 
   <section class="hero-image-section">
     <img
-      src={engagementsPhotos[0]}
+      src={engagementPhotos[0]}
       alt="Featured engagements photograph"
       class="hero-image"
     />
@@ -52,7 +52,7 @@ const engagementPhotos = Object.values(images);
   </section>
 
   <section class="gallery-grid">
-    {engagementsPhotos.slice(1).map((photo, index) => (
+    {engagementPhotos.slice(1).map((photo, index) => (
       <figure class={`gallery-item ${index % 5 === 0 ? "wide" : ""}`}>
         <img
           src={photo}
