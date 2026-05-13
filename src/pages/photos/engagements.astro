@@ -13,14 +13,14 @@ const images = import.meta.glob(
 const engagementPhotos = Object.values(images);
 ---
 
-<BaseLayout title="climbing — corb.cc">
+<BaseLayout title="engagements — corb.cc">
   <section class="page-intro">
     <div>
-      <p class="eyebrow">photos / climbing</p>
-      <h1>climbing</h1>
+      <p class="eyebrow">photos / engagements</p>
+      <h1>engagements</h1>
       <p class="intro">
         Movement, texture, effort, and the quiet space around all of it.
-        A curated selection of climbing photographs.
+        A curated selection of engagements photographs.
       </p>
     </div>
 
@@ -36,8 +36,8 @@ const engagementPhotos = Object.values(images);
 
   <section class="hero-image-section">
     <img
-      src={climbingPhotos[0]}
-      alt="Featured climbing photograph"
+      src={engagementsPhotos[0]}
+      alt="Featured engagements photograph"
       class="hero-image"
     />
   </section>
@@ -52,11 +52,11 @@ const engagementPhotos = Object.values(images);
   </section>
 
   <section class="gallery-grid">
-    {climbingPhotos.slice(1).map((photo, index) => (
+    {engagementsPhotos.slice(1).map((photo, index) => (
       <figure class={`gallery-item ${index % 5 === 0 ? "wide" : ""}`}>
         <img
           src={photo}
-          alt={`Climbing photograph ${index + 2}`}
+          alt={`engagements photograph ${index + 2}`}
           loading="lazy"
         />
       </figure>
