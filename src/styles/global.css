@@ -196,6 +196,11 @@ img {
   transform: none;
 }
 
+.top-nav a.is-active,
+.top-nav a.is-active:hover {
+  color: var(--red);
+}
+
 /* =========================
    BUTTON SYSTEM
 ========================= */

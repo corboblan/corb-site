@@ -2,6 +2,7 @@
 import "../styles/global.css";
 
 const { title = "corb.cc" } = Astro.props;
+const currentPath = Astro.url.pathname;
 
 const topNavItems = [
   { href: "/stuff", label: "stuff" },
@@ -13,6 +14,9 @@ const topNavItems = [
   { href: "/about", label: "about" },
   { href: "/contact", label: "contact" }
 ];
+
+const isCurrentSection = (href: string) =>
+  currentPath === href || currentPath.startsWith(`${href}/`);
 ---
 
 <html lang="en">
@@ -47,7 +51,13 @@ const topNavItems = [
 
         <nav class="top-nav" aria-label="Primary">
           {topNavItems.map((item) => (
-            <a href={item.href} class="wave-hover">{item.label}</a>
+            <a
+              href={item.href}
+              class={`wave-hover ${isCurrentSection(item.href) ? "is-active" : ""}`}
+              aria-current={isCurrentSection(item.href) ? "page" : undefined}
+            >
+              {item.label}
+            </a>
           ))}
         </nav>
 

@@ -341,13 +341,15 @@ const sounds = Object.entries(soundFiles)
     transition:
       transform 160ms ease,
       background 160ms ease,
+      color 160ms ease,
       border-color 160ms ease;
   }
 
   .randomize-button:hover {
     transform: translateY(-1px);
-    background: transparent;
-    border-color: rgba(36, 31, 27, 0.28);
+    background: var(--text);
+    color: var(--bg);
+    border-color: var(--text);
   }
 
   .flip-stage {
@@ -426,6 +428,7 @@ const sounds = Object.entries(soundFiles)
     justify-content: center;
     transition:
       background 160ms ease,
+      color 160ms ease,
       border-color 160ms ease,
       opacity 160ms ease;
     opacity: 0.9;
@@ -440,8 +443,9 @@ const sounds = Object.entries(soundFiles)
   }
 
   .slice-arrow:hover {
-    background: transparent;
-    border-color: rgba(36, 31, 27, 0.28);
+    background: var(--text);
+    color: var(--bg);
+    border-color: var(--text);
     opacity: 1;
   }
 
