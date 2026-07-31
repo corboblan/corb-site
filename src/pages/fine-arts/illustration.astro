@@ -1,0 +1,21 @@
+---
+import PhotoGallery from "../../components/PhotoGallery.astro";
+
+const images = import.meta.glob(
+  "/public/images/fine-arts/illustration/*.{jpg,jpeg,png,webp,avif,JPG,JPEG,PNG,WEBP,AVIF}",
+  { eager: true, query: "?url", import: "default" }
+);
+
+const artworks = Object.entries(images)
+  .sort(([a], [b]) => a.localeCompare(b, undefined, { numeric: true }))
+  .map(([, url]) => url);
+---
+
+<PhotoGallery
+  title="illustration"
+  photos={artworks}
+  intro="Drawings, characters, studies, and illustrated ideas."
+  section="fine arts"
+  itemLabel="illustration"
+  emptyLabel="Illustrations"
+/>

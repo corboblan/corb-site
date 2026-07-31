@@ -5,15 +5,25 @@ interface Props {
   title: string;
   photos: string[];
   intro: string;
+  section?: string;
+  itemLabel?: string;
+  emptyLabel?: string;
 }
 
-const { title, photos, intro } = Astro.props;
+const {
+  title,
+  photos,
+  intro,
+  section = "photos",
+  itemLabel = "photograph",
+  emptyLabel = "Photos"
+} = Astro.props;
 ---
 
 <BaseLayout title={`${title} — corb.cc`}>
   <section class="page-intro">
     <div>
-      <p class="eyebrow">photos / {title}</p>
+      <p class="eyebrow">{section} / {title}</p>
       <h1>{title}</h1>
       <p class="intro">{intro}</p>
     </div>
@@ -27,7 +37,7 @@ const { title, photos, intro } = Astro.props;
       <section class="hero-image-section">
         <img
           src={photos[0]}
-          alt={`Featured ${title} photograph`}
+          alt={`Featured ${title} ${itemLabel}`}
           class="hero-image"
         />
       </section>
@@ -44,7 +54,7 @@ const { title, photos, intro } = Astro.props;
           <figure class={`gallery-item ${index % 5 === 0 ? "wide" : ""}`}>
             <img
               src={photo}
-              alt={`${title} photograph ${index + 2}`}
+              alt={`${title} ${itemLabel} ${index + 2}`}
               loading="lazy"
             />
           </figure>
@@ -54,7 +64,7 @@ const { title, photos, intro } = Astro.props;
   ) : (
     <section class="empty-gallery">
       <p class="section-label">selected images</p>
-      <p>Photos coming soon.</p>
+      <p>{emptyLabel} coming soon.</p>
     </section>
   )}
 </BaseLayout>
