@@ -12,10 +12,11 @@
 
 :root {
   --bg: #ffffff;
-  --text: #241f1b;
-  --muted: #6f685f;
-  --soft: #9a9187;
-  --line: rgba(36, 31, 27, 0.16);
+  --text: #000000;
+  --invert: #000000;
+  --muted: #000000;
+  --soft: #000000;
+  --line: rgba(0, 0, 0, 0.16);
 
   --red: #d94c37;
   --blue: #2456a6;
@@ -59,24 +60,6 @@ img {
   max-width: 1300px;
   margin: 0 auto;
   padding: 1rem 1.25rem 2rem;
-}
-
-/* =========================
-   PAPER TEXTURE
-========================= */
-
-.paper-noise {
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 0;
-  opacity: 0.05;
-  background-image:
-    radial-gradient(circle at 20% 15%, rgba(0, 0, 0, 0.05), transparent 24%),
-    radial-gradient(circle at 78% 22%, rgba(0, 0, 0, 0.03), transparent 20%),
-    radial-gradient(circle at 35% 82%, rgba(0, 0, 0, 0.03), transparent 20%),
-    radial-gradient(circle at 60% 62%, rgba(0, 0, 0, 0.02), transparent 18%);
-  mix-blend-mode: multiply;
 }
 
 /* =========================
