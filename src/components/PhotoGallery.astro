@@ -5,7 +5,6 @@ interface Props {
   title: string;
   photos: string[];
   intro: string;
-  section?: string;
   itemLabel?: string;
   emptyLabel?: string;
 }
@@ -14,7 +13,6 @@ const {
   title,
   photos,
   intro,
-  section = "photos",
   itemLabel = "photograph",
   emptyLabel = "Photos"
 } = Astro.props;
@@ -23,7 +21,6 @@ const {
 <BaseLayout title={`${title} — corb.cc`}>
   <section class="page-intro">
     <div>
-      <p class="eyebrow">{section} / {title}</p>
       <h1>{title}</h1>
       <p class="intro">{intro}</p>
     </div>
@@ -72,13 +69,6 @@ const {
 <style>
   .page-intro {
     padding: 1.8rem 0 1.4rem;
-  }
-
-  .eyebrow {
-    margin: 0 0 0.4rem;
-    font-size: 0.9rem;
-    color: var(--muted);
-    text-transform: lowercase;
   }
 
   h1 {

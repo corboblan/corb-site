@@ -7,7 +7,6 @@ const projects = [
     type: "short film",
     description: "An awarding-winning short film about pursuing the things that bring you joy, especially through heartbreak.",
     year: "2025",
-    tag: "favorite",
     color: "var(--blue)",
     href: "https://youtu.be/C26oBHtdNnM",
     image: "/images/stuff/crash-out.jpg"
@@ -18,7 +17,6 @@ const projects = [
     type: "short film",
     description: "A visual letter written across sixteen days in Europe.",
     year: "2025",
-    tag: "video",
     color: "var(--red)",
     href: "https://www.youtube.com/watch?v=cCcpVtYgt04&t=14s",
     image: "/images/stuff/gameboy.jpg"
@@ -29,7 +27,6 @@ const projects = [
 <BaseLayout title="stuff — corb.cc">
   <section class="page-intro">
     <div>
-      <p class="eyebrow">stuff</p>
       <h1>projects</h1>
       <p class="intro">
         films, projects, and experiments. some finished, some still becoming.
@@ -51,7 +48,6 @@ const projects = [
         <div class="project">
           <div class="project-thumb">
             <img src={project.image} alt={project.title} />
-            <span class="thumb-label">{project.tag}</span>
           </div>
 
           <div class="project-info">
@@ -72,13 +68,6 @@ const projects = [
 <style>
   .page-intro {
     padding: 1.8rem 0 1.4rem;
-  }
-
-  .eyebrow {
-    margin: 0 0 0.4rem;
-    font-size: 0.9rem;
-    color: var(--muted);
-    text-transform: lowercase;
   }
 
   h1 {
@@ -136,18 +125,6 @@ const projects = [
 
   .project-link:hover .project-thumb img {
     transform: scale(1.03);
-  }
-
-  .thumb-label {
-    position: absolute;
-    top: 0.8rem;
-    left: 0.8rem;
-    padding: 0.22rem 0.55rem;
-    font-size: 0.78rem;
-    text-transform: lowercase;
-    border: 1px solid rgba(36, 31, 27, 0.12);
-    background: rgba(255, 255, 255, 0.9);
-    z-index: 2;
   }
 
   .project-info {
