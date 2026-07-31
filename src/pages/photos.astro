@@ -19,37 +19,21 @@ const firstImage = (images: Record<string, unknown>) =>
 const photoSets = [
   {
     title: "Wedding Work",
-    type: "weddings",
-    description: "weddings, engagements, and client work",
-    year: "selected work",
-    color: "var(--red)",
     image: "/images/photos/wedding-work.jpg",
     href: "/photos/engagements"
   },
   {
     title: "Portraits",
-    type: "portraits",
-    description: "people, friends, and quieter images",
-    year: "ongoing",
-    color: "var(--blue)",
     image: firstImage(portraitImages),
     href: "/photos/portraits"
   },
   {
     title: "Travel / Places",
-    type: "travel",
-    description: "images from places I’ve been and things I wanted to keep",
-    year: "archive",
-    color: "var(--green)",
     image: firstImage(travelImages),
     href: "/photos/travel"
   },
   {
     title: "Climbing",
-    type: "climbing",
-    description: "movement, texture, effort, and the spaces around it",
-    year: "ongoing",
-    color: "var(--lavender)",
     image: "/images/photos/climbing.jpg",
     href: "/photos/climbing"
   }
@@ -83,13 +67,7 @@ const photoSets = [
           </div>
 
           <div class="set-info">
-            <div class="set-topline">
-              <h2>{set.title}</h2>
-              <span class="set-year">{set.year}</span>
-            </div>
-
-            <p class="set-type" style={`--type-color:${set.color}`}>{set.type}</p>
-            <p class="set-description">{set.description}</p>
+            <h2>{set.title}</h2>
           </div>
         </a>
       </article>
@@ -164,14 +142,7 @@ const photoSets = [
     padding-top: 0.85rem;
   }
 
-  .set-topline {
-    display: flex;
-    justify-content: space-between;
-    gap: 1rem;
-    align-items: baseline;
-  }
-
-  .set-topline h2 {
+  .set-info h2 {
     margin: 0;
     font-size: clamp(1.5rem, 2.5vw, 2rem);
     line-height: 1;
@@ -179,32 +150,11 @@ const photoSets = [
     letter-spacing: -0.03em;
   }
 
-  .set-year {
-    color: var(--soft);
-    font-size: 0.88rem;
-    white-space: nowrap;
-  }
-
-  .set-type {
-    margin: 0.55rem 0 0;
-    color: var(--type-color);
-    font-size: 0.93rem;
-    text-transform: lowercase;
-  }
-
-  .set-description {
-    margin: 0.65rem 0 0;
-    color: var(--muted);
-    line-height: 1.7;
-    font-size: 0.98rem;
-    max-width: 34rem;
-  }
-
   .photo-link:hover .set-image {
     transform: scale(1.02);
   }
 
-  .photo-link:hover .set-topline h2 {
+  .photo-link:hover .set-info h2 {
     color: var(--blue);
   }
 
@@ -227,10 +177,5 @@ const photoSets = [
       height: 16rem;
     }
 
-    .set-topline {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 0.25rem;
-    }
   }
 </style>

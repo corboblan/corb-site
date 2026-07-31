@@ -24,25 +24,16 @@ const firstImage = (images: Record<string, unknown>) =>
 const artSets = [
   {
     title: "Illustration",
-    type: "drawings / digital",
-    description: "drawings, characters, studies, and illustrated ideas",
-    color: "var(--red)",
     image: firstImage(illustrationImages),
     href: "/fine-arts/illustration"
   },
   {
     title: "Paintings",
-    type: "paint / mixed media",
-    description: "paintings, color studies, and work made by hand",
-    color: "var(--blue)",
     image: firstImage(paintingImages),
     href: "/fine-arts/paintings"
   },
   {
     title: "Artistic Photos",
-    type: "photography",
-    description: "photographs made as experiments, expressions, and art",
-    color: "var(--green)",
     image: firstImage(artisticPhotoImages),
     href: "/fine-arts/artistic-photos"
   }
@@ -74,8 +65,6 @@ const artSets = [
 
           <div class="set-info">
             <h2>{set.title}</h2>
-            <p class="set-type" style={`--type-color:${set.color}`}>{set.type}</p>
-            <p class="set-description">{set.description}</p>
           </div>
         </a>
       </article>
@@ -155,21 +144,6 @@ const artSets = [
     line-height: 1;
     font-weight: 500;
     letter-spacing: -0.03em;
-  }
-
-  .set-type {
-    margin: 0.55rem 0 0;
-    color: var(--type-color);
-    font-size: 0.93rem;
-    text-transform: lowercase;
-  }
-
-  .set-description {
-    max-width: 34rem;
-    margin: 0.65rem 0 0;
-    color: var(--muted);
-    line-height: 1.7;
-    font-size: 0.98rem;
   }
 
   .art-link:hover .set-image {
