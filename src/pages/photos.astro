@@ -22,7 +22,6 @@ const photoSets = [
     type: "weddings",
     description: "weddings, engagements, and client work",
     year: "selected work",
-    tag: "client",
     color: "var(--red)",
     image: "/images/photos/wedding-work.jpg",
     href: "/photos/engagements"
@@ -32,7 +31,6 @@ const photoSets = [
     type: "portraits",
     description: "people, friends, and quieter images",
     year: "ongoing",
-    tag: "people",
     color: "var(--blue)",
     image: firstImage(portraitImages),
     href: "/photos/portraits"
@@ -42,7 +40,6 @@ const photoSets = [
     type: "travel",
     description: "images from places I’ve been and things I wanted to keep",
     year: "archive",
-    tag: "places",
     color: "var(--green)",
     image: firstImage(travelImages),
     href: "/photos/travel"
@@ -52,7 +49,6 @@ const photoSets = [
     type: "climbing",
     description: "movement, texture, effort, and the spaces around it",
     year: "ongoing",
-    tag: "motion",
     color: "var(--lavender)",
     image: "/images/photos/climbing.jpg",
     href: "/photos/climbing"
@@ -71,26 +67,9 @@ const photoSets = [
       </p>
     </div>
 
-    <div class="side-note">
-      <p>weddings</p>
-      <p>engagements</p>
-      <p>portraits</p>
-      <p>travel</p>
-    </div>
   </section>
 
   <div class="rule dashed"></div>
-
-  <section class="filter-row" aria-label="Photo categories">
-    <span>weddings</span>
-    <span>engagements</span>
-    <span>portraits</span>
-    <span>travel</span>
-    <span>personal</span>
-    <span>climbing</span>
-  </section>
-
-  <div class="rule"></div>
 
   <section class="photos-grid">
     {photoSets.map((set) => (
@@ -102,7 +81,6 @@ const photoSets = [
             ) : (
               <div class="set-image set-placeholder">photos coming soon</div>
             )}
-            <span class="set-tag" style={`--tag-color:${set.color}`}>{set.tag}</span>
           </div>
 
           <div class="set-info">
@@ -122,11 +100,7 @@ const photoSets = [
 
 <style>
   .page-intro {
-    display: grid;
-    grid-template-columns: 1.2fr 0.8fr;
-    gap: 2rem;
     padding: 1.8rem 0 1.4rem;
-    align-items: end;
   }
 
   .eyebrow {
@@ -150,37 +124,6 @@ const photoSets = [
     margin: 1rem 0 0;
     font-size: 1.08rem;
     line-height: 1.7;
-    color: var(--muted);
-  }
-
-  .side-note {
-    justify-self: end;
-    text-align: right;
-    color: var(--soft);
-    font-size: 0.95rem;
-    line-height: 1.6;
-  }
-
-  .side-note p {
-    margin: 0;
-  }
-
-  .filter-row {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.7rem;
-    padding: 1rem 0;
-  }
-
-  .filter-row span {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0.28rem 0.7rem;
-    border: 1px solid rgba(36, 31, 27, 0.1);
-    background: #faf8f4;
-    font-size: 0.85rem;
-    text-transform: lowercase;
     color: var(--muted);
   }
 
@@ -223,18 +166,6 @@ const photoSets = [
     color: var(--soft);
     font-size: 0.9rem;
     font-style: italic;
-  }
-
-  .set-tag {
-    position: absolute;
-    top: 0.8rem;
-    left: 0.8rem;
-    padding: 0.24rem 0.6rem;
-    background: rgba(255, 255, 255, 0.9);
-    border: 1px solid rgba(36, 31, 27, 0.1);
-    font-size: 0.78rem;
-    text-transform: lowercase;
-    color: var(--tag-color);
   }
 
   .set-info {
@@ -286,14 +217,8 @@ const photoSets = [
   }
 
   @media (max-width: 900px) {
-    .page-intro,
     .photos-grid {
       grid-template-columns: 1fr;
-    }
-
-    .side-note {
-      justify-self: start;
-      text-align: left;
     }
 
     .set-image {
