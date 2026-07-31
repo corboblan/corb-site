@@ -15,11 +15,6 @@ import BaseLayout from "../layouts/BaseLayout.astro";
       </p>
     </div>
 
-    <div class="side-note">
-      <p>rexburg / idaho</p>
-      <p>photos / video / teaching</p>
-      <p>climbing / media / internet</p>
-    </div>
   </section>
 
   <div class="rule dashed"></div>
@@ -81,11 +76,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 
 <style>
   .page-intro {
-    display: grid;
-    grid-template-columns: 1.2fr 0.8fr;
-    gap: 2rem;
     padding: 1.8rem 0 1.4rem;
-    align-items: end;
   }
 
   .eyebrow {
@@ -109,18 +100,6 @@ import BaseLayout from "../layouts/BaseLayout.astro";
     font-size: 1.08rem;
     line-height: 1.7;
     color: var(--muted);
-  }
-
-  .side-note {
-    justify-self: end;
-    text-align: right;
-    color: var(--soft);
-    font-size: 0.95rem;
-    line-height: 1.6;
-  }
-
-  .side-note p {
-    margin: 0;
   }
 
   .about-body {
@@ -155,14 +134,8 @@ import BaseLayout from "../layouts/BaseLayout.astro";
   }
 
   @media (max-width: 900px) {
-    .page-intro,
     .about-body {
       grid-template-columns: 1fr;
-    }
-
-    .side-note {
-      justify-self: start;
-      text-align: left;
     }
   }
 </style>

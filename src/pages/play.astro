@@ -33,6 +33,24 @@ const bottomParts = [
   "/images/flipbook/face7_03.jpg",
   "/images/flipbook/face8_03.jpg"
 ];
+
+const soundFiles = import.meta.glob(
+  "/public/audio/play/*.{mp3,wav,m4a,ogg,webm,flac,MP3,WAV,M4A,OGG,WEBM,FLAC}",
+  {
+    eager: true,
+    query: "?url",
+    import: "default"
+  }
+);
+
+const sounds = Object.entries(soundFiles)
+  .sort(([a], [b]) => a.localeCompare(b, undefined, { numeric: true }))
+  .map(([path, url]) => ({
+    url: url as string,
+    title: decodeURIComponent(path.split("/").pop() ?? "untitled")
+      .replace(/\.[^.]+$/, "")
+      .replace(/[-_]+/g, " ")
+  }));
 ---
 
 <BaseLayout title="play — corb.cc">
@@ -46,11 +64,6 @@ const bottomParts = [
       </p>
     </div>
 
-    <div class="side-note">
-      <p>top / middle / bottom</p>
-      <p>mix things up</p>
-      <p>make something weird</p>
-    </div>
   </section>
 
   <div class="rule dashed"></div>
@@ -167,11 +180,40 @@ const bottomParts = [
 
   <div class="rule"></div>
 
+  <section class="sound-section">
+    <div class="sound-heading">
+      <p class="section-label">sound player</p>
+      <h2>things to listen to</h2>
+      <p>songs, sounds, recordings, and whatever else belongs here.</p>
+    </div>
+
+    {sounds.length > 0 ? (
+      <div class="sound-list">
+        {sounds.map((sound, index) => (
+          <article class="sound-track">
+            <div class="track-info">
+              <span class="track-number">{String(index + 1).padStart(2, "0")}</span>
+              <h3>{sound.title}</h3>
+            </div>
+            <audio controls preload="metadata" src={sound.url}>
+              Your browser does not support audio playback.
+            </audio>
+          </article>
+        ))}
+      </div>
+    ) : (
+      <div class="sound-empty">
+        <p>no sounds here yet — check back soon.</p>
+      </div>
+    )}
+  </section>
+
+  <div class="rule"></div>
+
   <section class="more-soon">
     <p class="section-label">eventually</p>
     <p>
-      sound player / draggable collage / weird desktop / little game /
-      hidden pages
+      draggable collage / weird desktop / little game / hidden pages
     </p>
   </section>
 
@@ -233,16 +275,21 @@ const bottomParts = [
     Object.values(images).forEach((image) => {
       image.classList.add("is-visible");
     });
+
+    const audioPlayers = document.querySelectorAll("audio");
+    audioPlayers.forEach((player) => {
+      player.addEventListener("play", () => {
+        audioPlayers.forEach((otherPlayer) => {
+          if (otherPlayer !== player) otherPlayer.pause();
+        });
+      });
+    });
   </script>
 </BaseLayout>
 
 <style>
   .page-intro {
-    display: grid;
-    grid-template-columns: 1.2fr 0.8fr;
-    gap: 2rem;
     padding: 1.8rem 0 1.4rem;
-    align-items: end;
   }
 
   .eyebrow {
@@ -267,18 +314,6 @@ const bottomParts = [
     font-size: 1.08rem;
     line-height: 1.7;
     color: var(--muted);
-  }
-
-  .side-note {
-    justify-self: end;
-    text-align: right;
-    color: var(--soft);
-    font-size: 0.95rem;
-    line-height: 1.6;
-  }
-
-  .side-note p {
-    margin: 0;
   }
 
   .flipbook-section {
@@ -427,15 +462,85 @@ const bottomParts = [
     padding-top: 1.2rem;
   }
 
-  @media (max-width: 900px) {
-    .page-intro,
-    .flipbook-section {
-      grid-template-columns: 1fr;
-    }
+  .sound-section {
+    display: grid;
+    grid-template-columns: 0.8fr 1.2fr;
+    gap: 2rem;
+    padding: 1.8rem 0;
+  }
 
-    .side-note {
-      justify-self: start;
-      text-align: left;
+  .sound-heading h2 {
+    margin: 0;
+    font-size: clamp(2rem, 4vw, 3.4rem);
+    line-height: 1;
+    letter-spacing: -0.04em;
+    font-weight: 500;
+  }
+
+  .sound-heading p:last-child {
+    max-width: 28rem;
+    margin: 0.9rem 0 0;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+
+  .sound-list {
+    border-top: 1px solid var(--line);
+  }
+
+  .sound-track {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(15rem, 0.9fr);
+    gap: 1rem;
+    align-items: center;
+    padding: 1rem 0;
+    border-bottom: 1px dashed var(--line);
+  }
+
+  .track-info {
+    display: flex;
+    gap: 0.8rem;
+    min-width: 0;
+    align-items: baseline;
+  }
+
+  .track-number {
+    color: var(--soft);
+    font-size: 0.8rem;
+  }
+
+  .track-info h3 {
+    overflow: hidden;
+    margin: 0;
+    font-size: 1.15rem;
+    font-weight: 500;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .sound-track audio {
+    width: 100%;
+    height: 2.5rem;
+  }
+
+  .sound-empty {
+    display: grid;
+    min-height: 10rem;
+    place-items: center;
+    border: 1px dashed var(--line);
+    background: #faf8f4;
+    color: var(--soft);
+    font-style: italic;
+  }
+
+  .sound-empty p {
+    margin: 0;
+  }
+
+  @media (max-width: 900px) {
+    .flipbook-section,
+    .sound-section {
+      grid-template-columns: 1fr;
     }
   }
 
@@ -460,6 +565,10 @@ const bottomParts = [
 
     .slice-arrow.right {
       right: -2.2rem;
+    }
+
+    .sound-track {
+      grid-template-columns: 1fr;
     }
   }
 </style>
