@@ -5,64 +5,43 @@ const archiveCards = [
   {
     href: "/under-construction",
     title: "currently",
-    subtitle: "what's going on right now",
     description: "what i’m making, thinking about, or stuck on lately",
-    color: "var(--red)",
-    rotate: "-1.5deg",
     size: "large"
   },
   {
     href: "/under-construction",
     title: "watching",
-    subtitle: "movies / shows / videos",
     description: "everything from films to weird youtube rabbit holes",
-    color: "var(--blue)",
-    rotate: "1deg",
     size: "medium"
   },
   {
     href: "/under-construction",
     title: "playing",
-    subtitle: "games i’m in",
     description: "stuff i’m playing through, revisiting, or thinking about",
-    color: "var(--green)",
-    rotate: "-0.5deg",
     size: "medium"
   },
   {
     href: "/under-construction",
     title: "reading",
-    subtitle: "books / essays / threads",
     description: "books, articles, and things i keep meaning to finish",
-    color: "var(--lavender)",
-    rotate: "1.2deg",
     size: "small"
   },
   {
     href: "/under-construction",
     title: "pokemon team",
-    subtitle: "critical information",
     description: "for the people demanding to know the lineup",
-    color: "var(--yellow)",
-    rotate: "-1deg",
     size: "small"
   },
   {
-    href: "/under-construction",
+    href: "/archive/favorite-videos",
     title: "favorite videos",
-    subtitle: "youtube / essays / saved forever",
     description: "videos i love, revisit, or keep recommending",
-    color: "var(--brown)",
-    rotate: "0.8deg",
     size: "medium"
   },
   {
     href: "/under-construction",
     title: "thinking about",
-    subtitle: "ideas / obsessions / fragments",
     description: "things that keep floating around in my head",
-    color: "var(--text)",
-    rotate: "-1.2deg",
     size: "large"
   }
 ];
@@ -87,12 +66,8 @@ const archiveCards = [
       <a
         href={card.href}
         class={`archive-card ${card.size}`}
-        style={`--card-color:${card.color}; --card-rotate:${card.rotate};`}
       >
-        <div class="card-top">
-          <span class="mini-tag">{card.subtitle}</span>
-          <span class="arrow">↗</span>
-        </div>
+        <span class="arrow">↗</span>
 
         <div class="card-body">
           <h2>{card.title}</h2>
@@ -140,9 +115,9 @@ const archiveCards = [
     padding: 1rem;
     border: 1px solid rgba(36, 31, 27, 0.1);
     background: transparent;
-    transform: rotate(var(--card-rotate));
     transition:
-      transform 180ms ease,
+      background 180ms ease,
+      color 180ms ease,
       border-color 180ms ease;
     color: inherit;
     text-decoration: none;
@@ -160,28 +135,10 @@ const archiveCards = [
     grid-column: span 3;
   }
 
-  .card-top {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    gap: 1rem;
-  }
-
-  .mini-tag {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0.22rem 0.55rem;
-    font-size: 0.78rem;
-    text-transform: lowercase;
-    border: 1px solid rgba(36, 31, 27, 0.1);
-    background: color-mix(in srgb, var(--card-color) 12%, white);
-    color: var(--text);
-  }
-
   .arrow {
-    color: var(--card-color);
+    align-self: flex-end;
     font-size: 1.1rem;
+    transition: color 180ms ease;
   }
 
   .card-body h2 {
@@ -198,15 +155,17 @@ const archiveCards = [
     color: var(--muted);
     line-height: 1.65;
     max-width: 28ch;
+    transition: color 180ms ease;
   }
 
   .archive-card:hover {
-    transform: rotate(0deg) translateY(-4px);
-    border-color: rgba(36, 31, 27, 0.16);
+    background: var(--text);
+    color: var(--bg);
+    border-color: var(--text);
   }
 
-  .archive-card:hover .card-body h2 {
-    color: var(--card-color);
+  .archive-card:hover .card-body p {
+    color: var(--bg);
   }
 
   @media (max-width: 1100px) {
@@ -225,7 +184,6 @@ const archiveCards = [
     .archive-card.medium,
     .archive-card.small {
       grid-column: span 12;
-      transform: rotate(0deg);
     }
   }
 

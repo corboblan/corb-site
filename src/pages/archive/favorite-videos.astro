@@ -1,0 +1,293 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+interface FavoriteVideo {
+  url: string;
+  title: string;
+  creator?: string;
+  note?: string;
+}
+
+const favoriteVideos: FavoriteVideo[] = [
+  {
+    title: "The Undeniable Power Of Animation",
+    url: "https://youtu.be/zsQzEy-4hr4?si=JjZAmd97xJsg47xm"
+  },
+  {
+    title: "Silent Hill 2 and the Interpretation of Nightmares",
+    url: "https://youtu.be/AFKkCDsKrHc?si=-K5KewZWLfkfrtbV"
+  },
+  {
+    title: "Earthbound, Tough Love, and You",
+    url: "https://youtu.be/PWgKBzQ0cXc?si=t4MBpA9tnBQFAXaf"
+  },
+  {
+    title: "weird art, mixed media & unrestricted access to the internet",
+    url: "https://youtu.be/d_n_gmINZTI?si=_fRDEKGySdhoDaOZ"
+  },
+  {
+    title: "aMSa: The Only Yoshi (who could do it)",
+    url: "https://youtu.be/2WMBwFO65J4?si=Z0Xc8CQhJwCzsEPx"
+  },
+  {
+    title: "finding value in obscure art",
+    url: "https://youtu.be/q7FS_XWKvRI?si=NNR1zgRBJl5kg2hn"
+  },
+  {
+    title: "THINGS I LOVE for Robb Report",
+    url: "https://youtu.be/bBZWdYwgpzw?si=ppeDdawRntDToZL5"
+  },
+  {
+    title: "What The Internet Did To Garfield",
+    url: "https://youtu.be/O2C5R3FOWdE?si=EfZJxWMIAjYWCZS4"
+  },
+  {
+    title: "My Experience With Autism",
+    url: "https://youtu.be/8MDTNVSBhTg?si=Q5T3-o2acO5Z7CaD"
+  },
+  {
+    title: "Remakes and Art: Can Games Be Replaced?",
+    url: "https://youtu.be/Af17SAFIZH8?si=aV2B7_yfUp3sgQ2z"
+  },
+  {
+    title: "You Are An Artist",
+    url: "https://youtu.be/FljcklWhCIE?si=-q_aQQmwgd3XvOSn"
+  },
+  {
+    title: "The Importance of Real Things",
+    url: "https://youtu.be/J0DzXAx9qjI?si=i8uE_xgRuSK4dxtV"
+  },
+  {
+    title: "Final Fantasy 7, Environmentalism, and Beyond",
+    url: "https://youtu.be/PWeloSXKWKo?si=wT_W3G239vYfNXs6"
+  },
+  {
+    title: "The Cruelest Video Game",
+    url: "https://youtu.be/dRIkWHo1SJY?si=DC7SQHxaVerI8Ohm"
+  },
+  {
+    title: "The Impact of Final Fantasy 7: The Game that Changed Everything",
+    url: "https://youtu.be/9V68GCZ61Rc?si=dl2sss8g6mUksnH7"
+  },
+  {
+    title: "Artist Athlete",
+    url: "https://youtu.be/55oPmIBq3Ok?si=QqS3S28qE0Vm6-En"
+  },
+  {
+    title: "Silent Hill Called to Me",
+    url: "https://youtu.be/BIlL0lDz7I0?si=ad8cwdTZOQJeS4mA"
+  },
+  {
+    title: "The Last American on Earth",
+    url: "https://youtu.be/aDxrM8jknNg?si=4hU5skjZkZp8xzcN"
+  },
+  {
+    title: "there will Never Ever be another Melee player like Hungrybox",
+    url: "https://youtu.be/dmLSJrA0n9w?si=DjOLHzWOnVcHMgcB"
+  }
+];
+
+const getYouTubeId = (url: string) => {
+  const match = url.match(
+    /(?:youtube\.com\/(?:watch\?v=|shorts\/|embed\/)|youtu\.be\/)([^?&/]+)/
+  );
+  return match?.[1];
+};
+
+const videos = favoriteVideos
+  .map((video) => ({ ...video, id: getYouTubeId(video.url) }))
+  .filter((video) => video.id);
+---
+
+<BaseLayout title="favorite videos — corb.cc">
+  <section class="page-intro">
+    <h1>favorite videos</h1>
+    <p class="intro">
+      Things I love, revisit, send to people, or want to make sure I never lose.
+    </p>
+  </section>
+
+  <div class="rule dashed"></div>
+
+  {videos.length > 0 ? (
+    <section class="video-list">
+      {videos.map((video) => (
+        <article class="video-entry">
+          <a
+            href={video.url}
+            target="_blank"
+            rel="noreferrer"
+            class="video-link"
+          >
+            <div class="thumbnail-wrap">
+              <img
+                src={`https://i.ytimg.com/vi/${video.id}/hqdefault.jpg`}
+                alt={`Thumbnail for ${video.title}`}
+                loading="lazy"
+              />
+              <span class="play-icon" aria-hidden="true">▶</span>
+            </div>
+
+            <div class="video-info">
+              <h2>{video.title}</h2>
+              {video.creator && <p class="creator">{video.creator}</p>}
+              {video.note && <p class="note">{video.note}</p>}
+              <span class="watch-link">watch on youtube ↗</span>
+            </div>
+          </a>
+        </article>
+      ))}
+    </section>
+  ) : (
+    <section class="empty-list">
+      <p>favorite videos coming soon.</p>
+    </section>
+  )}
+</BaseLayout>
+
+<style>
+  .page-intro {
+    padding: 1.8rem 0 1.4rem;
+  }
+
+  h1 {
+    max-width: 12ch;
+    margin: 0;
+    font-size: clamp(3.2rem, 8vw, 6.2rem);
+    line-height: 0.92;
+    letter-spacing: -0.05em;
+    font-weight: 500;
+  }
+
+  .intro {
+    max-width: 40rem;
+    margin: 1rem 0 0;
+    color: var(--muted);
+    font-size: 1.08rem;
+    line-height: 1.7;
+  }
+
+  .video-list {
+    padding: 1.6rem 0;
+  }
+
+  .video-entry {
+    border-bottom: 1px dashed var(--line);
+  }
+
+  .video-entry:first-child {
+    border-top: 1px solid var(--line);
+  }
+
+  .video-link {
+    display: grid;
+    grid-template-columns: minmax(18rem, 0.8fr) minmax(0, 1.2fr);
+    gap: 1.5rem;
+    padding: 1.2rem 0;
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .thumbnail-wrap {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 16 / 9;
+    border: 1px solid rgba(36, 31, 27, 0.08);
+    border-radius: 0.85rem;
+  }
+
+  .thumbnail-wrap img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 220ms ease, filter 220ms ease;
+  }
+
+  .play-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    display: grid;
+    width: 3rem;
+    height: 3rem;
+    place-items: center;
+    border: 1px solid rgba(255, 255, 255, 0.75);
+    border-radius: 50%;
+    background: rgba(36, 31, 27, 0.75);
+    color: white;
+    font-size: 0.9rem;
+    transform: translate(-50%, -50%);
+    transition: background 180ms ease, color 180ms ease;
+  }
+
+  .video-info {
+    align-self: center;
+  }
+
+  .video-info h2 {
+    margin: 0;
+    font-size: clamp(1.5rem, 3vw, 2.4rem);
+    line-height: 1.05;
+    letter-spacing: -0.035em;
+    font-weight: 500;
+  }
+
+  .creator,
+  .note {
+    margin: 0.65rem 0 0;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  .note {
+    max-width: 38rem;
+  }
+
+  .watch-link {
+    display: inline-block;
+    margin-top: 1.1rem;
+    color: var(--soft);
+    font-size: 0.86rem;
+    text-transform: lowercase;
+  }
+
+  .video-link:hover .thumbnail-wrap img {
+    transform: scale(1.02);
+    filter: brightness(0.82);
+  }
+
+  .video-link:hover .play-icon {
+    background: white;
+    color: var(--text);
+  }
+
+  .video-link:hover h2 {
+    color: var(--red);
+  }
+
+  .empty-list {
+    display: grid;
+    min-height: 18rem;
+    place-items: center;
+    color: var(--soft);
+    font-style: italic;
+  }
+
+  .empty-list p {
+    margin: 0;
+  }
+
+  @media (max-width: 760px) {
+    .video-link {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+  }
+
+  @media (max-width: 640px) {
+    h1 {
+      font-size: clamp(2.8rem, 13vw, 4.5rem);
+    }
+  }
+</style>
