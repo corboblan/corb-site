@@ -1,0 +1,23 @@
+---
+import PhotoGallery from "../../components/PhotoGallery.astro";
+
+const images = import.meta.glob(
+  "/public/images/photos/portraits/*.{jpg,jpeg,png,webp,avif,JPG,JPEG,PNG,WEBP,AVIF}",
+  {
+    eager: true,
+    query: "?url",
+    import: "default"
+  }
+);
+
+const portraitPhotos = Object.entries(images)
+  .sort(([a], [b]) => a.localeCompare(b, undefined, { numeric: true }))
+  .map(([, url]) => url);
+---
+
+<PhotoGallery
+  title="portraits"
+  photos={portraitPhotos}
+  intro="People, friends, and quieter images. A curated selection of portrait photographs."
+  sideNotes={["people", "light", "character", "pause"]}
+/>

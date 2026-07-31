@@ -2,7 +2,7 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 
 const images = import.meta.glob(
-  "/public/images/photos/engagements/*.{jpg,jpeg,png,webp}",
+  "/public/images/photos/engagements/*.{jpg,jpeg,png,webp,avif,JPG,JPEG,PNG,WEBP,AVIF}",
   {
     eager: true,
     query: "?url",
@@ -10,7 +10,9 @@ const images = import.meta.glob(
   }
 );
 
-const engagementPhotos = Object.values(images);
+const engagementPhotos = Object.entries(images)
+  .sort(([a], [b]) => a.localeCompare(b, undefined, { numeric: true }))
+  .map(([, url]) => url);
 ---
 
 <BaseLayout title="engagements — corb.cc">

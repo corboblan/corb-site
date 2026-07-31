@@ -1,0 +1,23 @@
+---
+import PhotoGallery from "../../components/PhotoGallery.astro";
+
+const images = import.meta.glob(
+  "/public/images/photos/travel/*.{jpg,jpeg,png,webp,avif,JPG,JPEG,PNG,WEBP,AVIF}",
+  {
+    eager: true,
+    query: "?url",
+    import: "default"
+  }
+);
+
+const travelPhotos = Object.entries(images)
+  .sort(([a], [b]) => a.localeCompare(b, undefined, { numeric: true }))
+  .map(([, url]) => url);
+---
+
+<PhotoGallery
+  title="travel / places"
+  photos={travelPhotos}
+  intro="Images from places I’ve been and things I wanted to keep. A curated selection of travel photographs."
+  sideNotes={["places", "distance", "details", "memory"]}
+/>

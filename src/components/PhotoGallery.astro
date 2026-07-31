@@ -1,0 +1,204 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+interface Props {
+  title: string;
+  photos: string[];
+  intro: string;
+  sideNotes: string[];
+}
+
+const { title, photos, intro, sideNotes } = Astro.props;
+---
+
+<BaseLayout title={`${title} — corb.cc`}>
+  <section class="page-intro">
+    <div>
+      <p class="eyebrow">photos / {title}</p>
+      <h1>{title}</h1>
+      <p class="intro">{intro}</p>
+    </div>
+
+    <div class="side-note">
+      {sideNotes.map((note) => <p>{note}</p>)}
+    </div>
+  </section>
+
+  <div class="rule dashed"></div>
+
+  {photos.length > 0 ? (
+    <>
+      <section class="hero-image-section">
+        <img
+          src={photos[0]}
+          alt={`Featured ${title} photograph`}
+          class="hero-image"
+        />
+      </section>
+
+      <div class="rule"></div>
+
+      <section class="gallery-intro">
+        <p class="section-label">selected images</p>
+        <p>Not sorted by trip. Just the images that feel strongest together.</p>
+      </section>
+
+      <section class="gallery-grid">
+        {photos.slice(1).map((photo, index) => (
+          <figure class={`gallery-item ${index % 5 === 0 ? "wide" : ""}`}>
+            <img
+              src={photo}
+              alt={`${title} photograph ${index + 2}`}
+              loading="lazy"
+            />
+          </figure>
+        ))}
+      </section>
+    </>
+  ) : (
+    <section class="empty-gallery">
+      <p class="section-label">selected images</p>
+      <p>Photos coming soon.</p>
+    </section>
+  )}
+</BaseLayout>
+
+<style>
+  .page-intro {
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: 2rem;
+    padding: 1.8rem 0 1.4rem;
+    align-items: end;
+  }
+
+  .eyebrow {
+    margin: 0 0 0.4rem;
+    font-size: 0.9rem;
+    color: var(--muted);
+    text-transform: lowercase;
+  }
+
+  h1 {
+    margin: 0;
+    font-size: clamp(3.2rem, 8vw, 6rem);
+    line-height: 0.92;
+    letter-spacing: -0.05em;
+    font-weight: 500;
+  }
+
+  .intro {
+    max-width: 38rem;
+    margin: 1rem 0 0;
+    font-size: 1.08rem;
+    line-height: 1.7;
+    color: var(--muted);
+  }
+
+  .side-note {
+    justify-self: end;
+    text-align: right;
+    color: var(--soft);
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+
+  .side-note p {
+    margin: 0;
+  }
+
+  .hero-image-section {
+    padding: 1.5rem 0;
+  }
+
+  .hero-image {
+    display: block;
+    width: 100%;
+    max-height: 46rem;
+    object-fit: cover;
+    border: 1px solid rgba(36, 31, 27, 0.08);
+    box-shadow: 0 12px 18px var(--shadow);
+  }
+
+  .gallery-intro {
+    padding: 1.2rem 0 0.4rem;
+  }
+
+  .gallery-intro p:last-child,
+  .empty-gallery p:last-child {
+    margin: 0;
+    color: var(--muted);
+    line-height: 1.7;
+    max-width: 34rem;
+  }
+
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 1rem;
+    padding: 1.2rem 0 2rem;
+  }
+
+  .gallery-item {
+    grid-column: span 4;
+    margin: 0;
+  }
+
+  .gallery-item.wide {
+    grid-column: span 8;
+  }
+
+  .gallery-item img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    max-height: 34rem;
+    object-fit: cover;
+    border: 1px solid rgba(36, 31, 27, 0.08);
+    box-shadow: 0 10px 16px rgba(24, 20, 17, 0.05);
+    background: #f5f2ec;
+  }
+
+  .empty-gallery {
+    min-height: 20rem;
+    padding: 1.5rem 0 2rem;
+  }
+
+  @media (max-width: 900px) {
+    .page-intro {
+      grid-template-columns: 1fr;
+    }
+
+    .side-note {
+      justify-self: start;
+      text-align: left;
+    }
+
+    .gallery-item,
+    .gallery-item.wide {
+      grid-column: span 12;
+    }
+
+    .hero-image {
+      max-height: 30rem;
+    }
+
+    .gallery-item img {
+      max-height: none;
+    }
+  }
+
+  @media (max-width: 640px) {
+    h1 {
+      font-size: clamp(2.8rem, 13vw, 4.5rem);
+    }
+
+    .gallery-grid {
+      gap: 0.8rem;
+    }
+
+    .hero-image {
+      max-height: 22rem;
+    }
+  }
+</style>

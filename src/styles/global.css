@@ -150,20 +150,6 @@ body {
   text-decoration: none;
 }
 
-.masthead-right a {
-  border: 1px solid var(--text);
-  border-radius: 999px;
-  padding: 0.22rem 0.8rem;
-  font-size: 0.92rem;
-  background: white;
-  transition: background 160ms ease, color 160ms ease;
-}
-
-.masthead-right a:hover {
-  background: var(--text);
-  color: white;
-}
-
 /* =========================
    TOP STRIP
 ========================= */

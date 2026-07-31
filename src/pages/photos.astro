@@ -1,6 +1,21 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 
+const portraitImages = import.meta.glob(
+  "/public/images/photos/portraits/*.{jpg,jpeg,png,webp,avif,JPG,JPEG,PNG,WEBP,AVIF}",
+  { eager: true, query: "?url", import: "default" }
+);
+
+const travelImages = import.meta.glob(
+  "/public/images/photos/travel/*.{jpg,jpeg,png,webp,avif,JPG,JPEG,PNG,WEBP,AVIF}",
+  { eager: true, query: "?url", import: "default" }
+);
+
+const firstImage = (images: Record<string, unknown>) =>
+  Object.entries(images)
+    .sort(([a], [b]) => a.localeCompare(b, undefined, { numeric: true }))
+    .map(([, url]) => url)[0] as string | undefined;
+
 const photoSets = [
   {
     title: "Wedding Work",
@@ -19,8 +34,8 @@ const photoSets = [
     year: "ongoing",
     tag: "people",
     color: "var(--blue)",
-    image: "/images/photos/portraits.jpg",
-    href: "https://youtube.com/"
+    image: firstImage(portraitImages),
+    href: "/photos/portraits"
   },
   {
     title: "Travel / Places",
@@ -29,8 +44,8 @@ const photoSets = [
     year: "archive",
     tag: "places",
     color: "var(--green)",
-    image: "/images/photos/travel-places.jpg",
-    href: "https://youtube.com/"
+    image: firstImage(travelImages),
+    href: "/photos/travel"
   },
   {
     title: "Climbing",
@@ -82,7 +97,11 @@ const photoSets = [
       <article class="photo-card">
         <a href={set.href} target="_blank" rel="noreferrer" class="photo-link">
           <div class="image-wrap">
-            <img src={set.image} alt={set.title} class="set-image" />
+            {set.image ? (
+              <img src={set.image} alt={set.title} class="set-image" />
+            ) : (
+              <div class="set-image set-placeholder">photos coming soon</div>
+            )}
             <span class="set-tag" style={`--tag-color:${set.color}`}>{set.tag}</span>
           </div>
 
@@ -196,6 +215,14 @@ const photoSets = [
     height: 24rem;
     object-fit: cover;
     transition: transform 220ms ease;
+  }
+
+  .set-placeholder {
+    display: grid;
+    place-items: center;
+    color: var(--soft);
+    font-size: 0.9rem;
+    font-style: italic;
   }
 
   .set-tag {

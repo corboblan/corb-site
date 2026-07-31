@@ -1,20 +1,18 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 
-const climbingPhotos = [
-  "/images/photos/climbing/climb-01.jpg",
-  "/images/photos/climbing/climb-02.jpg",
-  "/images/photos/climbing/climb-03.jpg",
-  "/images/photos/climbing/climb-04.jpg",
-  "/images/photos/climbing/climb-05.jpg",
-  "/images/photos/climbing/climb-06.jpg",
-  "/images/photos/climbing/climb-07.jpg",
-  "/images/photos/climbing/climb-08.jpg",
-  "/images/photos/climbing/climb-09.jpg",
-  "/images/photos/climbing/climb-10.jpg",
-  "/images/photos/climbing/climb-11.jpg",
-  "/images/photos/climbing/climb-12.jpg"
-];
+const images = import.meta.glob(
+  "/public/images/photos/climbing/*.{jpg,jpeg,png,webp,avif,JPG,JPEG,PNG,WEBP,AVIF}",
+  {
+    eager: true,
+    query: "?url",
+    import: "default"
+  }
+);
+
+const climbingPhotos = Object.entries(images)
+  .sort(([a], [b]) => a.localeCompare(b, undefined, { numeric: true }))
+  .map(([, url]) => url);
 ---
 
 <BaseLayout title="climbing — corb.cc">
