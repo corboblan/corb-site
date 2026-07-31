@@ -332,7 +332,7 @@ const sounds = Object.entries(soundFiles)
   .randomize-button {
     appearance: none;
     border: 1px solid rgba(36, 31, 27, 0.16);
-    background: #faf8f4;
+    background: transparent;
     color: var(--text);
     padding: 0.55rem 0.8rem;
     font: inherit;
@@ -346,15 +346,14 @@ const sounds = Object.entries(soundFiles)
 
   .randomize-button:hover {
     transform: translateY(-1px);
-    background: white;
+    background: transparent;
     border-color: rgba(36, 31, 27, 0.28);
   }
 
   .flip-stage {
-    background: #f7f3ec;
-    border: 1px solid rgba(36, 31, 27, 0.1);
+    background: transparent;
+    border: none;
     padding: 1.8rem 3.4rem;
-    box-shadow: 0 14px 22px var(--shadow);
   }
 
   .flip-stack {
@@ -362,6 +361,8 @@ const sounds = Object.entries(soundFiles)
     margin: 0 auto;
     display: grid;
     gap: 0;
+    border: 1px solid rgba(36, 31, 27, 0.08);
+    border-radius: 0.85rem;
   }
 
   .slice {
@@ -372,24 +373,26 @@ const sounds = Object.entries(soundFiles)
 
   .slice-image-wrap {
     overflow: hidden;
-    border-left: 1px solid rgba(36, 31, 27, 0.08);
-    border-right: 1px solid rgba(36, 31, 27, 0.08);
-    border-top: 1px solid rgba(36, 31, 27, 0.08);
-    background: white;
-  }
-
-  .slice-bottom .slice-image-wrap {
-    border-bottom: 1px solid rgba(36, 31, 27, 0.08);
+    background: transparent;
   }
 
   .slice img {
     display: block;
     width: 100%;
     height: auto;
+    border-radius: 0;
     transition:
       opacity 140ms ease,
       transform 140ms ease,
-      filter 140ms ease;
+    filter 140ms ease;
+  }
+
+  .slice-top img {
+    border-radius: 0.85rem 0.85rem 0 0;
+  }
+
+  .slice-bottom img {
+    border-radius: 0 0 0.85rem 0.85rem;
   }
 
   .slice img.is-hidden {
@@ -411,7 +414,7 @@ const sounds = Object.entries(soundFiles)
     width: 2.4rem;
     height: 2.4rem;
     border: 1px solid rgba(36, 31, 27, 0.14);
-    background: rgba(250, 248, 244, 0.95);
+    background: transparent;
     color: var(--text);
     font: inherit;
     font-size: 1.1rem;
@@ -437,7 +440,7 @@ const sounds = Object.entries(soundFiles)
   }
 
   .slice-arrow:hover {
-    background: white;
+    background: transparent;
     border-color: rgba(36, 31, 27, 0.28);
     opacity: 1;
   }
@@ -528,7 +531,7 @@ const sounds = Object.entries(soundFiles)
     min-height: 10rem;
     place-items: center;
     border: 1px dashed var(--line);
-    background: #faf8f4;
+    background: transparent;
     color: var(--soft);
     font-style: italic;
   }

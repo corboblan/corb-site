@@ -45,6 +45,10 @@ body {
   overflow-x: hidden;
 }
 
+img {
+  border-radius: 0.85rem;
+}
+
 /* =========================
    GLOBAL PAGE WRAPPER
 ========================= */
@@ -199,7 +203,7 @@ body {
 .button {
   appearance: none;
   border: 1px solid rgba(36, 31, 27, 0.16);
-  background: #faf8f4;
+  background: transparent;
   color: var(--text);
   padding: 0.55rem 0.8rem;
   font: inherit;
@@ -212,7 +216,7 @@ body {
 
 .button:hover {
   transform: translateY(-1px);
-  background: white;
+  background: transparent;
   border-color: rgba(36, 31, 27, 0.28);
 }
 
