@@ -28,41 +28,43 @@ const isCurrentSection = (href: string) =>
 
   <body>
     <main class="page-shell">
-      <header class="masthead">
-        <div class="masthead-left">
-          <span class="tiny-box">◻</span>
-          <span class="tiny-box">✉</span>
-          <span class="tiny-note">having fun on the computer</span>
+      <header class="site-header">
+        <div class="masthead">
+          <div class="masthead-left">
+            <span class="tiny-box">◻</span>
+            <span class="tiny-box">✉</span>
+            <span class="tiny-note">having fun on the computer</span>
+          </div>
+
+          <div class="site-mark">
+            <a href="/">corb.cc</a>
+          </div>
+
+          <div class="masthead-right" aria-hidden="true"></div>
         </div>
 
-        <div class="site-mark">
-          <a href="/">corb.cc</a>
-        </div>
+        <div class="rule"></div>
 
-        <div class="masthead-right" aria-hidden="true"></div>
+        <section class="top-strip">
+          <p class="stamp">daily updates; occasionally.</p>
+
+          <nav class="top-nav" aria-label="Primary">
+            {topNavItems.map((item) => (
+              <a
+                href={item.href}
+                class={`wave-hover ${isCurrentSection(item.href) ? "is-active" : ""}`}
+                aria-current={isCurrentSection(item.href) ? "page" : undefined}
+              >
+                {item.label}
+              </a>
+            ))}
+          </nav>
+
+          <p class="stamp right">corb's internet archive</p>
+        </section>
+
+        <div class="rule dashed"></div>
       </header>
-
-      <div class="rule"></div>
-
-      <section class="top-strip">
-        <p class="stamp">daily updates; occasionally.</p>
-
-        <nav class="top-nav" aria-label="Primary">
-          {topNavItems.map((item) => (
-            <a
-              href={item.href}
-              class={`wave-hover ${isCurrentSection(item.href) ? "is-active" : ""}`}
-              aria-current={isCurrentSection(item.href) ? "page" : undefined}
-            >
-              {item.label}
-            </a>
-          ))}
-        </nav>
-
-        <p class="stamp right">corb's internet archive</p>
-      </section>
-
-      <div class="rule dashed"></div>
 
       <slot />
     </main>

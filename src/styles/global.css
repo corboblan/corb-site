@@ -43,7 +43,7 @@ body {
   background: var(--bg);
   color: var(--text);
   font-family: Georgia, "Times New Roman", Times, serif;
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 
 img {
@@ -59,7 +59,7 @@ img {
   z-index: 1;
   max-width: 1300px;
   margin: 0 auto;
-  padding: 1rem 1.25rem 2rem;
+  padding: 0 1.25rem 2rem;
 }
 
 /* =========================
@@ -85,6 +85,14 @@ img {
 /* =========================
    MASTHEAD + NAV
 ========================= */
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 4;
+  padding-top: 1rem;
+  background: var(--bg);
+}
 
 .masthead {
   display: grid;
@@ -379,7 +387,11 @@ img {
 
 @media (max-width: 640px) {
   .page-shell {
-    padding: 0.9rem 1rem 2rem;
+    padding-inline: 1rem;
+  }
+
+  .site-header {
+    padding-top: 0.9rem;
   }
 
   .tiny-note {
