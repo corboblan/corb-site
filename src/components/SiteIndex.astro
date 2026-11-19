@@ -1,0 +1,149 @@
+---
+const navItems = [
+  { href: "/stuff", label: "stuff", meta: "films / projects / experiments", color: "var(--blue)" },
+  { href: "/photos", label: "photos", meta: "people / places / weddings", color: "var(--red)" },
+  { href: "/under-construction", label: "things", meta: "restored / available / collected", color: "var(--green)" },
+  { href: "/fine-arts", label: "fine arts", meta: "paintings / drawings / illustrations", color: "var(--lavender)" },
+  { href: "/under-construction", label: "writing", meta: "notes / thoughts / media", color: "var(--brown)" },
+  { href: "/archive", label: "archive", meta: "personal / media / things i like", color: "var(--blue)" },
+  { href: "/play", label: "play", meta: "experiments / weird little things", color: "var(--yellow)" },
+  { href: "/about", label: "about", meta: "who i am / what this is", color: "var(--text)" },
+  { href: "/contact", label: "contact", meta: "inquiries / bookings / hello", color: "var(--brown)" }
+];
+---
+
+<details class="site-index">
+  <summary aria-label="Site index">
+    <span class="hamburger" aria-hidden="true"></span>
+  </summary>
+
+  <nav class="menu-panel" aria-label="Site index">
+    <p class="section-label">index</p>
+    <ul>
+      {navItems.map((item) => (
+        <li>
+          <a href={item.href}>
+            <span class="menu-word" style={`--menu-color:${item.color}`}>{item.label}</span>
+            <span class="menu-meta">{item.meta}</span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </nav>
+</details>
+
+<script>
+  const index = document.querySelector<HTMLDetailsElement>(".site-index")!;
+  const trigger = index.querySelector("summary")!;
+
+  document.addEventListener("click", (event) => {
+    if (index.open && event.target instanceof Node && !index.contains(event.target)) {
+      index.open = false;
+    }
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && index.open) {
+      index.open = false;
+      trigger.focus();
+    }
+  });
+</script>
+
+<style>
+  .site-index {
+    grid-area: index;
+    justify-self: end;
+  }
+
+  summary {
+    display: grid;
+    place-items: center;
+    width: 2.5rem;
+    height: 2rem;
+    border: 1px solid currentColor;
+    cursor: pointer;
+    list-style: none;
+  }
+
+  summary::-webkit-details-marker {
+    display: none;
+  }
+
+  summary:hover,
+  details[open] summary {
+    background: var(--invert);
+    color: var(--bg);
+  }
+
+  .hamburger {
+    width: 1rem;
+    height: 0.7rem;
+    display: grid;
+    align-items: center;
+    border-block: 1px solid currentColor;
+  }
+
+  .hamburger::after {
+    content: "";
+    border-top: 1px solid currentColor;
+  }
+
+  .menu-panel {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    width: min(100%, 30rem);
+    max-height: 50dvh;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    padding: 1rem;
+    background: var(--bg);
+    border: 1px solid var(--text);
+  }
+
+  .menu-panel ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 0.9rem;
+  }
+
+  .menu-panel a {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.15rem 0;
+    border-bottom: 1px solid rgba(36, 31, 27, 0.08);
+    transition: transform 160ms ease;
+  }
+
+  .menu-panel a:hover {
+    transform: translateX(0.3rem);
+  }
+
+  .menu-word {
+    color: var(--menu-color);
+    font-size: 1.5rem;
+    line-height: 1;
+    text-transform: lowercase;
+  }
+
+  .menu-meta {
+    color: var(--muted);
+    font-size: 0.92rem;
+    text-align: right;
+  }
+
+  @media (max-width: 640px) {
+    .menu-word {
+      font-size: 1.2rem;
+    }
+
+    .menu-meta {
+      font-size: 0.82rem;
+    }
+  }
+</style>

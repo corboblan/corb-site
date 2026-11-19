@@ -1,17 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-
-const navItems = [
-  { href: "/stuff", label: "stuff", meta: "films / projects / experiments", color: "var(--blue)" },
-  { href: "/photos", label: "photos", meta: "people / places / weddings", color: "var(--red)" },
-  { href: "/under-construction", label: "things", meta: "restored / available / collected", color: "var(--green)" },
-  { href: "/fine-arts", label: "fine arts", meta: "paintings / drawings / illustrations", color: "var(--lavender)" },
-  { href: "/under-construction", label: "writing", meta: "notes / thoughts / media", color: "var(--brown)" },
-  { href: "/archive", label: "archive", meta: "personal / media / things i like", color: "var(--blue)" },
-  { href: "/play", label: "play", meta: "experiments / weird little things", color: "var(--yellow)" },
-  { href: "/under-construction", label: "about", meta: "who i am / what this is", color: "var(--text)" },
-  { href: "/under-construction", label: "contact", meta: "inquiries / bookings / hello", color: "var(--brown)" }
-];
+import RecentImages from "../components/RecentImages.astro";
 
 const floatingBits = [
   { text: "✦", top: "7%", left: "6%", color: "var(--red)", size: "1rem", rotate: "-12deg" },
@@ -74,38 +63,12 @@ const floatingBits = [
 
   <div class="rule"></div>
 
-  <section class="content-grid">
-    <article class="lead-story">
-      <p class="section-label">currently</p>
-      <h2>editing, restoring, thinking, climbing</h2>
-      <p>
-        This is the most awesome website of all time. It is meant to hold
-        the parts of my life that usually end up scattered across too many
-        places. Some of it is client work. Some of it is personal. Some of
-        it is still unfinished. Idk hope you like it :)
-      </p>
-    </article>
-
-    <aside class="menu-panel">
-      <p class="section-label">index</p>
-      <ul>
-        {navItems.map((item) => (
-          <li>
-            <a href={item.href}>
-              <span class="menu-word" style={`--menu-color:${item.color}`}>{item.label}</span>
-              <span class="menu-meta">{item.meta}</span>
-            </a>
-          </li>
-        ))}
-      </ul>
-    </aside>
-  </section>
+  <RecentImages />
 
   <div class="rule dashed"></div>
 
   <footer class="footer">
     <p>corb.cc — issue zero</p>
-    <p>a collection of things I make and care about</p>
   </footer>
 </BaseLayout>
 
@@ -180,69 +143,7 @@ const floatingBits = [
     font-size: 0.88rem;
   }
 
-  .content-grid {
-    display: grid;
-    grid-template-columns: 1.1fr 0.9fr;
-    gap: 2rem;
-    align-items: start;
-    padding: 1.4rem 0 1.8rem;
-  }
-
-  .lead-story h2 {
-    margin: 0;
-    font-size: clamp(2rem, 4vw, 3.2rem);
-    line-height: 1;
-    letter-spacing: -0.04em;
-    font-weight: 500;
-  }
-
-  .lead-story p:last-child {
-    margin: 1rem 0 0;
-    max-width: 36rem;
-    color: var(--muted);
-    font-size: 1.05rem;
-    line-height: 1.7;
-  }
-
-  .menu-panel ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: grid;
-    gap: 0.9rem;
-  }
-
-  .menu-panel a {
-    display: flex;
-    align-items: baseline;
-    justify-content: space-between;
-    gap: 1rem;
-    padding: 0.15rem 0;
-    border-bottom: 1px solid rgba(36, 31, 27, 0.08);
-    transition: transform 160ms ease;
-  }
-
-  .menu-panel a:hover {
-    transform: translateX(0.3rem);
-  }
-
-  .menu-word {
-    color: var(--menu-color);
-    font-size: 1.5rem;
-    line-height: 1;
-    text-transform: lowercase;
-  }
-
-  .menu-meta {
-    color: var(--muted);
-    font-size: 0.92rem;
-    text-align: right;
-  }
-
   .footer {
-    display: flex;
-    justify-content: space-between;
-    gap: 1rem;
     padding-top: 1rem;
     color: var(--soft);
     font-size: 0.9rem;
@@ -253,8 +154,7 @@ const floatingBits = [
   }
 
   @media (max-width: 980px) {
-    .hero,
-    .content-grid {
+    .hero {
       grid-template-columns: 1fr;
     }
 
@@ -264,10 +164,6 @@ const floatingBits = [
 
     .homepage_photo {
       height: 22rem;
-    }
-
-    .footer {
-      flex-direction: column;
     }
   }
 
@@ -297,44 +193,7 @@ const floatingBits = [
       font-size: 0.84rem;
     }
 
-    .content-grid {
-      gap: 1.5rem;
-      padding: 1.2rem 0 1.5rem;
-    }
-
-    .lead-story h2 {
-      font-size: clamp(2rem, 10vw, 3rem);
-      line-height: 0.98;
-    }
-
-    .lead-story p:last-child {
-      font-size: 0.98rem;
-      line-height: 1.65;
-    }
-
-    .menu-panel ul {
-      gap: 0.7rem;
-    }
-
-    .menu-panel a {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 0.3rem;
-      padding: 0.25rem 0;
-    }
-
-    .menu-word {
-      font-size: 1.2rem;
-    }
-
-    .menu-meta {
-      font-size: 0.88rem;
-      line-height: 1.45;
-      text-align: left;
-    }
-
     .footer {
-      gap: 0.4rem;
       font-size: 0.82rem;
     }
 

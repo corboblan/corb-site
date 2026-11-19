@@ -1,5 +1,6 @@
 ---
 import "../styles/global.css";
+import SiteIndex from "../components/SiteIndex.astro";
 
 const { title = "corb.cc" } = Astro.props;
 const currentPath = Astro.url.pathname;
@@ -60,7 +61,7 @@ const isCurrentSection = (href: string) =>
             ))}
           </nav>
 
-          <p class="stamp right">corb's internet archive</p>
+          <SiteIndex />
         </section>
 
         <div class="rule dashed"></div>
