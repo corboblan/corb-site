@@ -2,14 +2,16 @@
 import { execFileSync } from "node:child_process";
 
 const images = import.meta.glob<string>(
-  "/public/images/{photos,fine-arts}/*/*.{jpg,jpeg,png,webp,avif,JPG,JPEG,PNG,WEBP,AVIF}",
+  "/public/images/{photos,stuff}/*/*.{jpg,jpeg,png,webp,avif,JPG,JPEG,PNG,WEBP,AVIF}",
   { eager: true, query: "?url", import: "default" }
 );
-const galleryPaths = ["public/images/photos", "public/images/fine-arts"];
+const galleryPaths = ["public/images/photos", "public/images/stuff"];
+const legacyPath = "public/images/fine-arts";
+const currentPath = (path: string) => path.replace(/^public\/images\/fine-arts\//, "public/images/stuff/");
 
-function gitPaths(args: string[]) {
+function gitPaths(args: string[], scopes = galleryPaths) {
   try {
-    return execFileSync("git", [...args, "--", ...galleryPaths], {
+    return execFileSync("git", [...args, "--", ...scopes], {
       encoding: "utf8",
       stdio: ["ignore", "pipe", "ignore"]
     }).split("\0").filter(Boolean);
@@ -19,10 +21,13 @@ function gitPaths(args: string[]) {
 }
 
 // Checkout timestamps reset on deploy. Use the commits that introduced each image.
+const relocated = new Set(gitPaths(["ls-tree", "-r", "--name-only", "-z", "HEAD"], [legacyPath]).map(currentPath));
+const historyScopes = [...galleryPaths, legacyPath];
 const paths = new Set([
-  ...gitPaths(["ls-files", "--others", "--exclude-standard", "-z"]),
-  ...gitPaths(["diff", "HEAD", "--diff-filter=A", "--name-only", "-z"]),
-  ...gitPaths(["log", "--full-history", "--no-renames", "--diff-filter=A", "--name-only", "--format=", "-z"]),
+  ...gitPaths(["ls-files", "--others", "--exclude-standard", "-z"]).filter((path) => !relocated.has(path)),
+  ...gitPaths(["diff", "HEAD", "-M", "--diff-filter=A", "--name-only", "-z"], historyScopes),
+  ...gitPaths(["log", "--full-history", "-M", "--diff-filter=A", "--name-only", "--format=", "-z"], historyScopes)
+    .map(currentPath),
   ...Object.keys(images).sort().map((path) => path.slice(1))
 ]);
 

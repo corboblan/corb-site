@@ -1,66 +1,73 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 
-const projects = [
-  {
-    title: "Crash Out",
-    type: "short film",
-    description: "An awarding-winning short film about pursuing the things that bring you joy, especially through heartbreak.",
-    year: "2025",
-    color: "var(--blue)",
-    href: "https://youtu.be/C26oBHtdNnM",
-    image: "/images/stuff/crash-out.jpg"
-  },
+const illustrationImages = import.meta.glob(
+  "/public/images/stuff/illustration/*.{jpg,jpeg,png,webp,avif,JPG,JPEG,PNG,WEBP,AVIF}",
+  { eager: true, query: "?url", import: "default" }
+);
 
+const paintingImages = import.meta.glob(
+  "/public/images/stuff/paintings/*.{jpg,jpeg,png,webp,avif,JPG,JPEG,PNG,WEBP,AVIF}",
+  { eager: true, query: "?url", import: "default" }
+);
+
+const artisticPhotoImages = import.meta.glob(
+  "/public/images/stuff/artistic-photos/*.{jpg,jpeg,png,webp,avif,JPG,JPEG,PNG,WEBP,AVIF}",
+  { eager: true, query: "?url", import: "default" }
+);
+
+const firstImage = (images: Record<string, unknown>) =>
+  Object.entries(images)
+    .sort(([a], [b]) => a.localeCompare(b, undefined, { numeric: true }))
+    .map(([, url]) => url)[0] as string | undefined;
+
+const artSets = [
   {
-    title: "The Idea of Us",
-    type: "short film",
-    description: "A visual letter written across sixteen days in Europe.",
-    year: "2025",
-    color: "var(--red)",
-    href: "https://www.youtube.com/watch?v=cCcpVtYgt04&t=14s",
-    image: "/images/stuff/gameboy.jpg"
+    title: "Illustration",
+    image: firstImage(illustrationImages),
+    href: "/stuff/illustration"
+  },
+  {
+    title: "Paintings",
+    image: firstImage(paintingImages),
+    href: "/stuff/paintings"
+  },
+  {
+    title: "Artistic Photos",
+    image: firstImage(artisticPhotoImages),
+    href: "/stuff/artistic-photos"
   }
 ];
 ---
 
 <BaseLayout title="stuff — corb.cc">
   <section class="page-intro">
-    <div>
-      <h1>projects</h1>
-      <p class="intro">
-        films, projects, and experiments. some finished, some still becoming.
-      </p>
-    </div>
-
+    <h1>drawings, paintings, photographs, and other things made by hand</h1>
+    <p class="intro">
+      A place for visual work that lives outside of client projects. Finished
+      pieces, experiments, studies, and ideas worth keeping around.
+    </p>
   </section>
 
   <div class="rule dashed"></div>
 
-  <section class="projects">
-    {projects.map((project) => (
-      <a
-        href={project.href}
-        class="project-link"
-        target={project.href.startsWith("http") ? "_blank" : undefined}
-        rel={project.href.startsWith("http") ? "noreferrer" : undefined}
-      >
-        <div class="project">
-          <div class="project-thumb">
-            <img src={project.image} alt={project.title} />
+  <section class="art-grid">
+    {artSets.map((set) => (
+      <article class="art-card">
+        <a href={set.href} class="art-link">
+          <div class="image-wrap">
+            {set.image ? (
+              <img src={set.image} alt={set.title} class="set-image" />
+            ) : (
+              <div class="set-image set-placeholder">art coming soon</div>
+            )}
           </div>
 
-          <div class="project-info">
-            <div class="project-top">
-              <h2 style={`color:${project.color}`}>{project.title}</h2>
-              <span class="year">{project.year}</span>
-            </div>
-
-            <p class="type">{project.type}</p>
-            <p class="description">{project.description}</p>
+          <div class="set-info">
+            <h2>{set.title}</h2>
           </div>
-        </div>
-      </a>
+        </a>
+      </article>
     ))}
   </section>
 </BaseLayout>
@@ -71,100 +78,99 @@ const projects = [
   }
 
   h1 {
+    max-width: 13ch;
     margin: 0;
-    font-size: clamp(3rem, 8vw, 5.5rem);
+    font-size: clamp(3.2rem, 8vw, 6.4rem);
     line-height: 0.92;
     letter-spacing: -0.05em;
     font-weight: 500;
   }
 
   .intro {
-    max-width: 38rem;
+    max-width: 40rem;
     margin: 1rem 0 0;
     font-size: 1.08rem;
     line-height: 1.7;
     color: var(--muted);
   }
 
-  .projects {
+  .art-grid {
     display: grid;
-    gap: 2.2rem;
-    padding: 1.6rem 0;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.8rem 1.5rem;
+    padding-top: 1.6rem;
   }
 
-  .project-link {
-    text-decoration: none;
+  .art-card {
+    min-width: 0;
+  }
+
+  .art-link {
+    display: block;
     color: inherit;
+    text-decoration: none;
   }
 
-  .project {
-    display: grid;
-    grid-template-columns: 1fr 1.2fr;
-    gap: 2rem;
-    align-items: center;
-  }
-
-  /* 🔥 FIXED THUMBNAIL SYSTEM */
-  .project-thumb {
-    position: relative;
+  .image-wrap {
     overflow: hidden;
     border: 1px solid rgba(36, 31, 27, 0.08);
     border-radius: 0.85rem;
     background: transparent;
-    aspect-ratio: 4 / 5;
   }
 
-  .project-thumb img {
-    position: absolute;
-    inset: 0;
+  .set-image {
+    display: block;
     width: 100%;
-    height: 100%;
+    height: 24rem;
     object-fit: cover;
     transition: transform 220ms ease;
   }
 
-  .project-link:hover .project-thumb img {
-    transform: scale(1.03);
-  }
-
-  .project-info {
-    display: flex;
-    flex-direction: column;
-    gap: 0.4rem;
-  }
-
-  .project-top {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-  }
-
-  h2 {
-    margin: 0;
-    font-size: 1.8rem;
-    letter-spacing: -0.02em;
-  }
-
-  .year {
-    font-size: 0.9rem;
+  .set-placeholder {
+    display: grid;
+    place-items: center;
     color: var(--soft);
-  }
-
-  .type {
-    margin: 0;
     font-size: 0.9rem;
-    color: var(--muted);
+    font-style: italic;
   }
 
-  .description {
-    margin: 0.4rem 0 0;
-    color: var(--muted);
-    line-height: 1.6;
+  .set-info {
+    padding-top: 0.85rem;
+  }
+
+  .set-info h2 {
+    margin: 0;
+    font-size: clamp(1.5rem, 2.5vw, 2rem);
+    line-height: 1;
+    font-weight: 500;
+    letter-spacing: -0.03em;
+  }
+
+  .art-link:hover .set-image {
+    transform: scale(1.02);
+  }
+
+  .art-link:hover h2 {
+    color: var(--blue);
   }
 
   @media (max-width: 900px) {
-    .project {
+    .art-grid {
       grid-template-columns: 1fr;
+    }
+
+    .set-image {
+      height: 20rem;
+    }
+  }
+
+  @media (max-width: 640px) {
+    h1 {
+      font-size: clamp(2.8rem, 13vw, 4.5rem);
+    }
+
+    .set-image {
+      height: 16rem;
     }
   }
 </style>

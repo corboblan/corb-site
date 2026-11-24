@@ -1,0 +1,2 @@
+/fine-arts /stuff 301
+/fine-arts/* /stuff/:splat 301
